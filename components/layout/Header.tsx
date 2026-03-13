@@ -20,63 +20,77 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close menu on resize to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) setIsMenuOpen(false);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 glass-header transition-all duration-300 ${
-        isScrolled ? "shadow-lg shadow-black/20" : ""
+        isScrolled ? "shadow-lg shadow-black/25" : ""
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-primary/10 border border-primary/20 group-hover:bg-primary/20 transition-colors">
-            <span className="text-primary font-bold text-xl">C</span>
+        <Link href="/" className="flex items-center gap-3 group" aria-label="Cauralis - inicio">
+          <div className="h-9 w-9 flex items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/25 group-hover:from-primary/30 transition-all duration-300">
+            <span className="text-primary font-bold text-lg leading-none">C</span>
           </div>
-          <span className="text-2xl font-bold tracking-tight text-slate-100">
+          <span className="text-xl font-bold tracking-tight text-slate-100 group-hover:text-white transition-colors">
             Cauralis
           </span>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-10">
+        <nav className="hidden md:flex items-center gap-10" aria-label="Navegación principal">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-slate-300 hover:text-primary transition-colors"
+              className="text-sm font-medium text-slate-400 hover:text-primary transition-colors relative group/nav"
             >
               {link.label}
+              <span className="absolute -bottom-0.5 left-0 right-0 h-px bg-primary scale-x-0 group-hover/nav:scale-x-100 transition-transform origin-left" />
             </Link>
           ))}
         </nav>
 
-        {/* CTA */}
+        {/* CTA + mobile toggle */}
         <div className="flex items-center gap-4">
           <Link
             href="#contacto"
-            className="hidden md:inline-flex cta-gradient text-background-dark px-6 py-2.5 rounded-lg text-sm font-bold hover:opacity-90 transition-opacity"
+            className="hidden md:inline-flex cta-gradient text-background-dark px-6 py-2.5 rounded-xl text-sm font-bold transition-all"
           >
-            Comenzar Proyecto
+            <span>Comenzar Proyecto</span>
           </Link>
-          {/* Mobile menu toggle */}
           <button
-            className="md:hidden text-slate-300 hover:text-primary transition-colors"
+            className="md:hidden text-slate-300 hover:text-primary transition-colors p-1"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
+            aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={isMenuOpen}
           >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-background-dark/95 backdrop-blur-xl border-t border-slate-800 px-6 py-6 flex flex-col gap-4">
+      {/* Mobile dropdown */}
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ${
+          isMenuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <div className="bg-background-dark/97 backdrop-blur-xl border-t border-slate-800 px-6 py-5 flex flex-col gap-2">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-base font-medium text-slate-300 hover:text-primary transition-colors py-2"
+              className="text-base font-medium text-slate-300 hover:text-primary transition-colors py-2.5 border-b border-slate-800/60 last:border-0"
               onClick={() => setIsMenuOpen(false)}
             >
               {link.label}
@@ -84,13 +98,13 @@ export default function Header() {
           ))}
           <Link
             href="#contacto"
-            className="cta-gradient text-background-dark px-6 py-3 rounded-lg text-sm font-bold text-center mt-2"
+            className="cta-gradient text-background-dark px-6 py-3.5 rounded-xl text-sm font-bold text-center mt-3"
             onClick={() => setIsMenuOpen(false)}
           >
             Comenzar Proyecto
           </Link>
         </div>
-      )}
+      </div>
     </header>
   );
 }

@@ -4,69 +4,125 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, Zap } from "lucide-react";
 
+const floatingCards = [
+  {
+    icon: "🚀",
+    title: "Landing Page",
+    desc: "Conversión optimizada",
+    color: "text-primary",
+    delay: "0ms",
+  },
+  {
+    icon: "💳",
+    title: "Tarjeta Digital",
+    desc: "Networking moderno",
+    color: "text-lima",
+    delay: "120ms",
+  },
+  {
+    icon: "📦",
+    title: "Catálogo Digital",
+    desc: "Muestra tu negocio",
+    color: "text-secondary",
+    delay: "240ms",
+  },
+  {
+    icon: "⚡",
+    title: "Automatizaciones",
+    desc: "Ahorra tiempo",
+    color: "text-primary",
+    delay: "360ms",
+  },
+  {
+    icon: "🛒",
+    title: "Ecommerce",
+    desc: "Vende en línea",
+    color: "text-lima",
+    delay: "480ms",
+  },
+];
+
 export default function Hero() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const leftRef = useRef<HTMLDivElement>(null);
+  const rightRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    el.style.opacity = "0";
-    el.style.transform = "translateY(24px)";
-    const raf = requestAnimationFrame(() => {
-      el.style.transition = "opacity 0.8s ease-out, transform 0.8s ease-out";
-      el.style.opacity = "1";
-      el.style.transform = "translateY(0)";
+    const left = leftRef.current;
+    const right = rightRef.current;
+    if (!left || !right) return;
+
+    [left, right].forEach((el, i) => {
+      el.style.opacity = "0";
+      el.style.transform = `translateY(${i === 0 ? "28px" : "20px"})`;
     });
-    return () => cancelAnimationFrame(raf);
+
+    const id = requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        left.style.transition = "opacity 0.9s ease-out, transform 0.9s ease-out";
+        left.style.opacity = "1";
+        left.style.transform = "translateY(0)";
+        setTimeout(() => {
+          right.style.transition = "opacity 0.9s ease-out, transform 0.9s ease-out";
+          right.style.opacity = "1";
+          right.style.transform = "translateY(0)";
+        }, 200);
+      });
+    });
+
+    return () => cancelAnimationFrame(id);
   }, []);
 
   return (
-    <section className="relative pt-32 pb-20 lg:pt-52 lg:pb-36 overflow-hidden">
-      {/* Background glows */}
-      <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[700px] h-[700px] bg-primary/8 blur-[140px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[500px] h-[500px] bg-lima/5 blur-[120px] rounded-full pointer-events-none" />
+    <section className="relative min-h-screen flex items-center py-32 lg:py-0 overflow-hidden">
+      {/* ── Background glows ─────────────────────── */}
+      <div className="absolute top-[-10%] right-[-5%] w-[650px] h-[650px] bg-primary/10 blur-[130px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-lima/6 blur-[110px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-accent-blue/20 blur-[100px] rounded-full pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
-        {/* Left content */}
-        <div ref={containerRef} className="relative z-10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10 w-full grid lg:grid-cols-2 gap-16 xl:gap-24 items-center">
+        {/* ── LEFT CONTENT ──────────────────────── */}
+        <div ref={leftRef} className="relative z-10">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-8">
-            <Zap size={12} className="text-primary fill-primary" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/25 mb-8 backdrop-blur-sm">
+            <Zap size={13} className="text-primary fill-primary" />
             <span className="text-xs font-bold uppercase tracking-widest text-primary">
               Productos Digitales Premium
             </span>
           </div>
 
-          <h1 className="text-5xl lg:text-7xl font-bold leading-[1.05] mb-6 tracking-tight">
+          {/* Headline */}
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.04] mb-6 tracking-tight">
             Innovando{" "}
-            <span className="hero-gradient-text block">
+            <span className="hero-gradient-text">
               Fronteras Digitales
             </span>
           </h1>
 
+          {/* Subtitle */}
           <p className="text-lg lg:text-xl text-slate-400 mb-10 max-w-lg leading-relaxed">
             Potenciamos negocios con landing pages, tarjetas digitales,
             catálogos, automatizaciones y ecommerce de alto impacto.
           </p>
 
+          {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
               href="#servicios"
-              className="cta-gradient glow-hover text-background-dark px-8 py-4 rounded-xl font-bold text-lg inline-flex items-center justify-center gap-2"
+              className="cta-gradient glow-hover text-background-dark px-8 py-4 rounded-xl font-bold text-base inline-flex items-center justify-center gap-2"
             >
-              Ver Servicios
-              <ArrowRight size={20} />
+              <span>Ver Servicios</span>
+              <ArrowRight size={18} />
             </Link>
             <Link
               href="#contacto"
-              className="px-8 py-4 rounded-xl border border-slate-700 bg-slate-800/50 hover:bg-slate-800 font-bold text-lg transition-all inline-flex items-center justify-center gap-2"
+              className="px-8 py-4 rounded-xl border border-slate-700 bg-slate-800/40 hover:bg-slate-800 hover:border-slate-600 font-bold text-base transition-all inline-flex items-center justify-center gap-2 backdrop-blur-sm"
             >
               Contactar
             </Link>
           </div>
 
           {/* Stats */}
-          <div className="flex gap-10 mt-12 pt-10 border-t border-slate-800">
+          <div className="flex gap-10 mt-12 pt-10 border-t border-slate-800/80">
             {[
               { value: "50+", label: "Proyectos" },
               { value: "100%", label: "Satisfacción" },
@@ -84,67 +140,62 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right: visual card */}
-        <div className="relative lg:h-[560px] flex items-center justify-center">
-          {/* Floating glow ring */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-lima/10 rounded-3xl blur-2xl scale-95 opacity-60" />
+        {/* ── RIGHT VISUAL ──────────────────────── */}
+        <div ref={rightRef} className="relative z-10">
+          {/* Outer glow */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-lima/15 rounded-3xl blur-3xl scale-90 opacity-60 pointer-events-none" />
 
-          <div className="relative w-full h-full min-h-[400px] rounded-2xl bg-gradient-to-br from-primary/15 via-accent-blue/80 to-lima/10 border border-slate-700 overflow-hidden p-1">
-            {/* Inner decorative grid */}
+          {/* Card container */}
+          <div className="relative rounded-2xl bg-gradient-to-br from-primary/12 via-accent-blue to-lima/8 border border-slate-700/70 overflow-hidden p-6">
+            {/* Grid lines */}
             <div
-              className="absolute inset-0 opacity-10"
+              className="absolute inset-0 opacity-[0.07]"
               style={{
                 backgroundImage:
-                  "repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(6,191,173,0.4) 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(6,191,173,0.4) 40px)",
+                  "repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(6,191,173,0.6) 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(6,191,173,0.6) 40px)",
               }}
             />
+            {/* Top glow stripe */}
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
-            {/* Floating cards */}
-            <div className="relative z-10 p-6 h-full flex flex-col justify-between">
-              <div className="flex flex-col gap-3">
-                {[
-                  {
-                    icon: "🚀",
-                    title: "Landing Page",
-                    desc: "Conversión optimizada",
-                    color: "text-primary",
-                  },
-                  {
-                    icon: "💳",
-                    title: "Tarjeta Digital",
-                    desc: "Networking inteligente",
-                    color: "text-lima",
-                  },
-                  {
-                    icon: "📦",
-                    title: "Catálogo Digital",
-                    desc: "Muestra tu negocio",
-                    color: "text-secondary",
-                  },
-                ].map((item) => (
-                  <div
-                    key={item.title}
-                    className="bg-slate-900/70 backdrop-blur border border-slate-700/60 rounded-xl p-4 flex items-center gap-4 hover:border-primary/40 transition-colors group"
-                  >
-                    <span className="text-2xl">{item.icon}</span>
-                    <div>
-                      <div
-                        className={`font-bold text-sm ${item.color} group-hover:text-primary transition-colors`}
-                      >
-                        {item.title}
-                      </div>
-                      <div className="text-xs text-slate-500">{item.desc}</div>
-                    </div>
-                    <ArrowRight
-                      size={14}
-                      className="ml-auto text-slate-600 group-hover:text-primary transition-colors"
-                    />
-                  </div>
-                ))}
+            <div className="relative z-10 flex flex-col gap-3">
+              {/* Header label */}
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-bold tracking-widest uppercase text-primary/80">
+                  Servicios Disponibles
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                  <span className="text-xs text-slate-500">En línea</span>
+                </span>
               </div>
 
+              {/* Service cards */}
+              {floatingCards.map((item) => (
+                <div
+                  key={item.title}
+                  className="bg-slate-900/75 backdrop-blur-sm border border-slate-700/60 rounded-xl px-5 py-4 flex items-center gap-4 hover:border-primary/40 hover:bg-slate-900/90 transition-all duration-300 group cursor-default"
+                >
+                  <span className="text-2xl shrink-0" aria-hidden="true">
+                    {item.icon}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <div className={`font-semibold text-sm ${item.color} group-hover:text-primary transition-colors`}>
+                      {item.title}
+                    </div>
+                    <div className="text-xs text-slate-500 truncate">
+                      {item.desc}
+                    </div>
+                  </div>
+                  <ArrowRight
+                    size={14}
+                    className="shrink-0 text-slate-700 group-hover:text-primary transition-colors"
+                  />
+                </div>
+              ))}
+
               {/* Bottom indicator */}
-              <div className="mt-4 flex items-center gap-2">
+              <div className="mt-2 flex items-center gap-2 pt-3 border-t border-slate-800">
                 <span className="flex h-2 w-2 rounded-full bg-primary animate-pulse" />
                 <span className="text-xs text-slate-500">
                   Disponible para nuevos proyectos

@@ -1,27 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap');
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@source "../app/**/*.{js,ts,jsx,tsx}";
+@source "../components/**/*.{js,ts,jsx,tsx}";
 
-:root {
+/* ─── TAILWIND v4 THEME ─────────────────────────────────────────── */
+@theme {
+  /* Fonts */
+  --font-sans: 'DM Sans', sans-serif;
+  --font-display: 'DM Sans', sans-serif;
+
+  /* Brand colors */
   --color-primary: #06BFAD;
   --color-secondary: #26BF87;
   --color-lima: #59D979;
-  --color-bg: #0A1426;
-  --color-bg-secondary: #192E59;
+  --color-accent-blue: #192E59;
+  --color-background-dark: #0A1426;
+  --color-background-light: #f5f8f8;
+
+  /* Animations */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes fadeUp {
+    0% { opacity: 0; transform: translateY(24px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
 }
 
-* {
-  box-sizing: border-box;
-}
-
+/* ─── BASE ───────────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  font-family: 'DM Sans', sans-serif;
   background-color: #0A1426;
   color: #f1f5f9;
   overflow-x: hidden;
@@ -29,13 +41,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ─── GLASS HEADER ───────────────────────────────────────────────── */
 .glass-header {
-  background: rgba(10, 20, 38, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(6, 191, 173, 0.12);
+  background: rgba(10, 20, 38, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(6, 191, 173, 0.15);
 }
 
+/* ─── GRADIENT TEXT ──────────────────────────────────────────────── */
 .hero-gradient-text {
   background: linear-gradient(90deg, #06BFAD 0%, #59D979 100%);
   -webkit-background-clip: text;
@@ -43,32 +57,53 @@ body {
   background-clip: text;
 }
 
+/* ─── CTA GRADIENT BUTTON ────────────────────────────────────────── */
 .cta-gradient {
   background: linear-gradient(135deg, #06BFAD 0%, #59D979 100%);
+  position: relative;
+  overflow: hidden;
+  transition: opacity 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.cta-gradient:hover {
+  opacity: 0.92;
 }
 
+/* ─── GLOW HOVER ─────────────────────────────────────────────────── */
 .glow-hover {
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
-
 .glow-hover:hover {
-  box-shadow: 0 0 30px rgba(6, 191, 173, 0.3);
+  box-shadow: 0 0 40px rgba(6, 191, 173, 0.35), 0 8px 32px rgba(6, 191, 173, 0.12);
+  transform: translateY(-2px);
 }
 
+/* ─── CARD HOVER ─────────────────────────────────────────────────── */
 .card-hover {
-  transition: all 0.3s ease;
+  transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s ease;
 }
-
 .card-hover:hover {
-  border-color: rgba(6, 191, 173, 0.5);
-  transform: translateY(-4px);
+  border-color: rgba(6, 191, 173, 0.4);
+  transform: translateY(-6px);
+  box-shadow: 0 24px 64px rgba(6, 191, 173, 0.06), 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
-@layer utilities {
-  .animation-delay-200 {
-    animation-delay: 0.2s;
-  }
-  .animation-delay-400 {
-    animation-delay: 0.4s;
-  }
+/* ─── SCROLLBAR ──────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0A1426;
+}
+::-webkit-scrollbar-thumb {
+  background: #192E59;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #06BFAD;
+}
+
+/* ─── SELECTION ──────────────────────────────────────────────────── */
+::selection {
+  background: rgba(6, 191, 173, 0.25);
+  color: #f1f5f9;
 }

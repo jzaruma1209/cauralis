@@ -17,8 +17,8 @@ const servicios = [
     icon: Globe,
     acento: "text-primary",
     bg: "bg-primary/10",
-    hoverBg: "group-hover:bg-primary",
-    hoverText: "group-hover:text-background-dark",
+    border: "border-primary/20",
+    hoverGlow: "hover:shadow-primary/10",
   },
   {
     slug: "tarjetas-digitales",
@@ -28,8 +28,8 @@ const servicios = [
     icon: CreditCard,
     acento: "text-lima",
     bg: "bg-lima/10",
-    hoverBg: "group-hover:bg-lima",
-    hoverText: "group-hover:text-background-dark",
+    border: "border-lima/20",
+    hoverGlow: "hover:shadow-lima/10",
   },
   {
     slug: "catalogos-digitales",
@@ -39,8 +39,8 @@ const servicios = [
     icon: BookOpen,
     acento: "text-secondary",
     bg: "bg-secondary/10",
-    hoverBg: "group-hover:bg-secondary",
-    hoverText: "group-hover:text-background-dark",
+    border: "border-secondary/20",
+    hoverGlow: "hover:shadow-secondary/10",
   },
   {
     slug: "automatizaciones",
@@ -50,8 +50,8 @@ const servicios = [
     icon: Zap,
     acento: "text-primary",
     bg: "bg-primary/10",
-    hoverBg: "group-hover:bg-primary",
-    hoverText: "group-hover:text-background-dark",
+    border: "border-primary/20",
+    hoverGlow: "hover:shadow-primary/10",
   },
   {
     slug: "ecommerce",
@@ -61,8 +61,8 @@ const servicios = [
     icon: ShoppingCart,
     acento: "text-lima",
     bg: "bg-lima/10",
-    hoverBg: "group-hover:bg-lima",
-    hoverText: "group-hover:text-background-dark",
+    border: "border-lima/20",
+    hoverGlow: "hover:shadow-lima/10",
   },
 ];
 
@@ -70,49 +70,60 @@ export default function Servicios() {
   return (
     <section
       id="servicios"
-      className="py-24 bg-slate-900/30"
+      className="relative py-28 lg:py-36"
       aria-label="Nuestros Servicios"
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        {/* Header */}
+      {/* Subtle background */}
+      <div className="absolute inset-0 bg-slate-900/30 pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-700/50 to-transparent" />
+
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
+        {/* ── Header ───────────────────────────────── */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
           <div className="max-w-2xl">
-            <h2 className="text-primary font-bold tracking-widest uppercase text-sm mb-4">
+            <p className="text-primary font-bold tracking-widest uppercase text-xs mb-4">
               Nuestros Servicios
+            </p>
+            <h2 className="text-4xl lg:text-5xl font-bold text-slate-100 leading-tight">
+              Soluciones Digitales<br className="hidden lg:block" /> para tu Negocio
             </h2>
-            <h3 className="text-4xl lg:text-5xl font-bold text-slate-100 leading-tight">
-              Soluciones Digitales para tu Negocio
-            </h3>
           </div>
-          <p className="text-slate-400 max-w-xs leading-relaxed text-sm">
+          <p className="text-slate-400 max-w-xs leading-relaxed text-sm md:text-right">
             Estrategias y productos digitales diseñados para escalar tu
             presencia online.
           </p>
         </div>
 
-        {/* Cards grid */}
+        {/* ── Cards grid ───────────────────────────── */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {servicios.map((servicio) => {
             const Icon = servicio.icon;
             return (
               <div
                 key={servicio.slug}
-                className="bg-accent-blue rounded-2xl p-8 border border-slate-800 group card-hover"
+                className={`group relative bg-accent-blue/60 rounded-2xl p-8 border border-slate-800 card-hover hover:shadow-xl ${servicio.hoverGlow} backdrop-blur-sm`}
               >
+                {/* Top color accent line */}
+                <div className={`absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-current to-transparent ${servicio.acento} opacity-0 group-hover:opacity-30 transition-opacity duration-300`} />
+
+                {/* Icon */}
                 <div
-                  className={`w-14 h-14 rounded-xl ${servicio.bg} flex items-center justify-center mb-6 ${servicio.acento} ${servicio.hoverBg} ${servicio.hoverText} transition-all duration-300`}
+                  className={`w-14 h-14 rounded-2xl ${servicio.bg} border ${servicio.border} flex items-center justify-center mb-6 ${servicio.acento} group-hover:scale-110 transition-transform duration-300`}
                 >
-                  <Icon size={28} strokeWidth={1.5} />
+                  <Icon size={26} strokeWidth={1.5} />
                 </div>
-                <h4 className="text-xl font-bold mb-3 text-slate-100">
+
+                {/* Content */}
+                <h3 className="text-xl font-bold mb-3 text-slate-100 group-hover:text-white transition-colors">
                   {servicio.nombre}
-                </h4>
-                <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                </h3>
+                <p className="text-slate-400 text-sm leading-relaxed mb-7">
                   {servicio.descripcion}
                 </p>
+
                 <Link
                   href={`/servicios/${servicio.slug}`}
-                  className={`${servicio.acento} font-bold text-sm inline-flex items-center gap-1 hover:gap-2 transition-all group/link`}
+                  className={`${servicio.acento} font-bold text-sm inline-flex items-center gap-1.5 hover:gap-3 transition-all duration-200 group/link`}
                 >
                   Ver más
                   <ChevronRight
@@ -125,22 +136,28 @@ export default function Servicios() {
           })}
 
           {/* CTA card */}
-          <div className="cta-gradient rounded-2xl p-8 flex flex-col justify-between min-h-[260px]">
-            <div>
-              <h4 className="text-xl font-bold mb-3 text-background-dark">
+          <div className="cta-gradient rounded-2xl p-8 flex flex-col justify-between min-h-[280px] relative overflow-hidden">
+            {/* Decorative circles */}
+            <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full pointer-events-none" />
+            <div className="absolute -bottom-6 -left-6 w-28 h-28 bg-white/5 rounded-full pointer-events-none" />
+
+            <div className="relative z-10">
+              <h3 className="text-xl font-bold mb-3 text-background-dark">
                 ¿Tienes un proyecto en mente?
-              </h4>
-              <p className="text-background-dark/70 text-sm leading-relaxed">
-                Cuéntanos tu idea y la hacemos realidad.
+              </h3>
+              <p className="text-background-dark/75 text-sm leading-relaxed">
+                Cuéntanos tu idea y juntos la hacemos realidad con tecnología de punta.
               </p>
             </div>
-            <Link
-              href="#contacto"
-              className="inline-flex items-center gap-2 bg-background-dark/15 hover:bg-background-dark/25 text-background-dark font-bold px-6 py-3 rounded-xl transition-colors mt-6"
-            >
-              Comenzar ahora
-              <ChevronRight size={16} />
-            </Link>
+            <div className="relative z-10">
+              <Link
+                href="#contacto"
+                className="inline-flex items-center gap-2 bg-background-dark/20 hover:bg-background-dark/30 text-background-dark font-bold px-6 py-3 rounded-xl transition-colors mt-6"
+              >
+                Comenzar ahora
+                <ChevronRight size={16} />
+              </Link>
+            </div>
           </div>
         </div>
       </div>
