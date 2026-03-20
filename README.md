@@ -1,36 +1,169 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌐 Cauralis — Sitio Web Oficial
 
-## Getting Started
+> Plataforma digital de productos y servicios tecnológicos.  
+> Desarrollado con **Next.js 16 + TypeScript + Tailwind CSS v4**.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Stack Tecnológico
+
+| Tecnología | Uso |
+|---|---|
+| **Next.js 16** | Framework principal (App Router) |
+| **TypeScript** | Tipado estático |
+| **Tailwind CSS v4** | Estilos con `@theme` y `@source` |
+| **Framer Motion** | Animaciones UI |
+| **Supabase** | Base de datos + Storage |
+| **Resend** | Envío de emails transaccionales |
+| **Vercel** | Hosting y despliegue |
+| **JWT + Bcrypt** | Autenticación del panel admin |
+| **Zod + React Hook Form** | Validación de formularios |
+
+---
+
+## 📁 Estructura del Proyecto
+
+```
+cauralis/
+├── app/
+│   ├── (public)/               # Páginas públicas
+│   │   ├── page.tsx            # Home (Hero + Servicios + Portfolio + CTA)
+│   │   ├── layout.tsx          # Layout con Header y Footer
+│   │   ├── contacto/           # Página de contacto
+│   │   └── servicios/[slug]/   # Detalle dinámico de servicio
+│   ├── (admin)/
+│   │   └── aurora/             # Panel de administración (ruta oculta)
+│   │       ├── page.tsx        # Login del admin
+│   │       └── dashboard/      # Dashboard con gestión de mensajes
+│   ├── api/
+│   │   ├── contacto/route.ts   # API: guardar mensaje + enviar email
+│   │   └── auth/
+│   │       ├── login/route.ts  # API: autenticación admin
+│   │       └── logout/route.ts # API: cierre de sesión
+│   ├── globals.css             # Estilos globales + tokens de diseño
+│   ├── sitemap.ts              # Sitemap dinámico
+│   └── not-found.tsx           # Página 404 personalizada
+├── components/
+│   ├── layout/
+│   │   ├── Header.tsx          # Navbar responsive con glassmorphism
+│   │   └── Footer.tsx          # Footer con enlaces y redes
+│   ├── sections/
+│   │   ├── Hero.tsx            # Sección principal del Home
+│   │   ├── Servicios.tsx       # Grilla de servicios
+│   │   ├── Portfolio.tsx       # Portfolio de proyectos
+│   │   └── ContactoCTA.tsx     # CTA de contacto
+│   └── forms/
+│       └── ContactForm.tsx     # Formulario de contacto validado
+├── lib/
+│   ├── auth/jwt.ts             # Utilidades JWT (sign, verify, getSession)
+│   ├── supabase/
+│   │   ├── client.ts           # Cliente público de Supabase
+│   │   └── server.ts           # Cliente server-side (SERVICE_ROLE)
+│   ├── email/resend.ts         # Cliente de Resend configurado
+│   └── data/servicios.ts       # Datos hardcodeados de servicios
+├── public/
+│   └── cauralis-logo.png       # Logo oficial
+├── middleware.ts               # Protección de rutas /aurora/*
+├── .env.local                  # Variables de entorno (NO subir a git)
+├── .env.example                # Plantilla de variables requeridas
+├── cauralis-flujo.md           # Documento maestro del proyecto
+└── cauralis-estado.md          # Estado y progreso del proyecto
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🎨 Tokens de Diseño
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Token | Valor | Uso |
+|---|---|---|
+| `--color-bg` | `#0A1426` | Fondo principal |
+| `--color-secondary` | `#192E59` | Fondo secundario |
+| `--color-accent` | `#06BFAD` | Color de acento (cyan) |
+| `--color-green` | `#26BF87` | Gradiente verde |
+| `--color-lime` | `#59D979` | Lima/verde claro |
+| Fuente | **DM Sans** | Tipografía principal |
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## ⚙️ Levantar en local
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# 1. Instalar dependencias
+npm install
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# 2. Configurar variables de entorno
+cp .env.example .env.local
+# → Llena .env.local con tus claves reales
 
-## Deploy on Vercel
+# 3. Iniciar servidor de desarrollo
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🔑 Variables de Entorno Requeridas
+
+```env
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+
+# Resend (emails)
+RESEND_API_KEY=
+
+# Admin Auth (JWT)
+JWT_SECRET=
+ADMIN_EMAIL=
+ADMIN_PASSWORD_HASH=
+```
+
+> ⚠️ Ver `.env.example` para descripción detallada de cada variable.
+
+---
+
+## 📄 Páginas del Sitio
+
+| Ruta | Descripción |
+|---|---|
+| `/` | Home público (Hero + Servicios + Portfolio + CTA) |
+| `/servicios/[slug]` | Detalle de cada servicio |
+| `/contacto` | Formulario de contacto con validación |
+| `/aurora` | Login del panel de administración (ruta oculta) |
+| `/aurora/dashboard` | Panel admin — gestión de mensajes |
+
+---
+
+## 🗂️ Estado del Proyecto
+
+| Fase | Descripción | Estado |
+|---|---|---|
+| ✅ | Setup y cimientos | Completado |
+| ✅ | Frontend público (Home + Servicios) | Completado |
+| ✅ | SEO, sitemap y 404 | Completado |
+| ✅ | Backend: Supabase + Resend + Rate Limiting | Completado |
+| ✅ | Panel Admin Aurora (Login + Dashboard) | Completado |
+| ⏳ | Deploy en Vercel + dominio cauralis.com | Pendiente (manual) |
+
+---
+
+## 🚢 Deploy en Vercel
+
+1. Sube el repositorio a **GitHub**
+2. Importa el proyecto en [vercel.com](https://vercel.com)
+3. Configura las **variables de entorno** en el dashboard de Vercel
+4. Apunta el dominio **`cauralis.com`** a Vercel
+
+---
+
+## 📚 Documentación Interna
+
+- [`cauralis-flujo.md`](./cauralis-flujo.md) — Prompt maestro, arquitectura y flujo de construcción
+- [`cauralis-estado.md`](./cauralis-estado.md) — Estado actual detallado y checklist de progreso
+- [`.env.example`](./.env.example) — Plantilla de variables de entorno
+
+---
+
+*Cauralis © 2025 — Productos digitales que generan resultados.*

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const footerLinks = {
   servicios: [
@@ -57,13 +58,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
           {/* Brand */}
           <div className="md:col-span-5">
-            <Link href="/" className="flex items-center gap-3 mb-6 group w-fit">
-              <div className="h-9 w-9 flex items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/25">
-                <span className="text-primary font-bold text-lg leading-none">C</span>
-              </div>
-              <span className="text-xl font-bold tracking-tight text-slate-100">
-                Cauralis
-              </span>
+            <Link href="/" className="mb-6 block group w-fit">
+              <Image 
+                src="/cauralis-logo.png" 
+                alt="Cauralis Logo" 
+                width={120} 
+                height={40} 
+                className="h-10 w-auto object-contain"
+              />
             </Link>
             <p className="text-slate-500 max-w-sm mb-8 leading-relaxed text-sm">
               Empresa de productos digitales que impulsa negocios con soluciones

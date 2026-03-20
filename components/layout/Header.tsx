@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
@@ -37,13 +38,15 @@ export default function Header() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 group" aria-label="Cauralis - inicio">
-          <div className="h-9 w-9 flex items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/25 group-hover:from-primary/30 transition-all duration-300">
-            <span className="text-primary font-bold text-lg leading-none">C</span>
-          </div>
-          <span className="text-xl font-bold tracking-tight text-slate-100 group-hover:text-white transition-colors">
-            Cauralis
-          </span>
+        <Link href="/" className="flex items-center" aria-label="Cauralis - inicio">
+          <Image 
+            src="/cauralis-logo.png" 
+            alt="Cauralis Logo" 
+            width={120} 
+            height={40} 
+            className="h-10 w-auto object-contain"
+            priority 
+          />
         </Link>
 
         {/* Desktop Nav */}

@@ -60,200 +60,85 @@ Sigue el principio de separation of concerns.
 
 ---
 
-## 🗺️ FLUJO DE CONSTRUCCIÓN
-
-Sigue este orden. Cada fase tiene su propio chat o sesión con Claude.
-Pega el prompt maestro al inicio + el prompt específico de cada fase.
+## 🗺️ FLUJO DE CONSTRUCCIÓN (Dividido en 5 Bloques)
 
 ---
 
-### FASE 1 — Setup del proyecto
-**Objetivo:** Proyecto creado, configurado y listo para escribir código.
-
-**Prompt específico:**
-```
-Estamos en la FASE 1 — Setup.
-Necesito los comandos exactos para:
-1. Crear el proyecto Next.js con TypeScript, Tailwind y App Router
-2. Instalar todas las dependencias (shadcn/ui, framer-motion, zod, supabase, resend, bcryptjs, jose)
-3. Crear la estructura de carpetas completa del proyecto
-4. Configurar los design tokens de Cauralis en tailwind.config.ts (colores + DM Sans)
-5. Crear el archivo .env.local con todas las variables necesarias (vacías)
-
-Dame los comandos y el código de configuración listos para copiar y pegar.
-```
+### BLOQUE 1: Cimientos y Estructura Base (COMPLETADO ✅)
+- Setup con Next.js 14, TypeScript y Tailwind CSS v4.
+- Componentes globales: Header (con logo real `cauralis-logo.png`) y Footer.
+- Layout Público definido.
 
 ---
 
-### FASE 2 — Layout base
-**Objetivo:** Header, Footer y layout principal funcionando con los colores correctos.
-
-**Prompt específico:**
-```
-Estamos en la FASE 2 — Layout base.
-Crea los siguientes componentes:
-1. components/layout/Header.tsx → logo "Cauralis" + nav links (Servicios, Portfolio, Contacto)
-2. components/layout/Footer.tsx → simple con nombre, redes y copyright
-3. app/(public)/layout.tsx → que incluya Header y Footer
-
-Usa los design tokens de Tailwind, DM Sans, y que sea responsive.
-No uses imágenes aún, el logo es texto por ahora.
-```
+### BLOQUE 2: Experiencia de Usuario - Home y Servicios (COMPLETADO ✅)
+- Secciones del Home: Hero, Servicios, Portfolio, ContactoCTA.
+- Rutas dinámicas `/servicios/[slug]` con datos hardcodeados en `lib/data/servicios.ts`.
+- Diseño responsive y optimizado.
 
 ---
 
-### FASE 3 — Página principal (secciones)
-**Objetivo:** Home completo con todas las secciones visualmente terminadas.
-
-Construye cada sección en su propio prompt para mantener el foco:
-
-**3a — Hero:**
-```
-Estamos en la FASE 3a — Hero section.
-Crea components/sections/Hero.tsx
-Debe transmitir: empresa de productos digitales, moderna, confiable.
-Incluye: headline, subtítulo, CTA principal (Ver servicios) y CTA secundario (Contactar).
-Usa Framer Motion para animación de entrada suave.
-Fondo con gradiente usando los colores del proyecto.
-```
-
-**3b — Servicios:**
-```
-Estamos en la FASE 3b — Sección Servicios.
-Crea components/sections/Servicios.tsx
-Servicios a mostrar: landing pages, tarjetas digitales, catálogos digitales, automatizaciones, ecommerce.
-Diseño en grid de cards. Cada card tiene: ícono, nombre, descripción corta y link a /servicios/[slug].
-Los slugs son: landing-pages, tarjetas-digitales, catalogos-digitales, automatizaciones, ecommerce.
-Usa datos hardcodeados por ahora (los pasaremos a Supabase en V2).
-```
-
-**3c — Portfolio:**
-```
-Estamos en la FASE 3c — Sección Portfolio.
-Crea components/sections/Portfolio.tsx
-Muestra ejemplos/plantillas de trabajos anteriores.
-Usa placeholders visuales (divs con gradiente) donde irían las imágenes reales.
-Grid de 3 columnas en desktop, 1 en mobile.
-```
-
-**3d — Sección Contacto home:**
-```
-Estamos en la FASE 3d — Sección Contacto en el Home.
-Crea components/sections/ContactoCTA.tsx
-Es solo un bloque visual con: título, subtítulo, botón que lleva a /contacto y botón de WhatsApp.
-No incluye el formulario completo (ese va en /contacto).
-```
+### BLOQUE 3: Conversión y SEO (COMPLETADO ✅)
+- Página `/contacto` con formulario, validación Zod y estados de carga/éxito/error.
+- Metadata global, sitemap dinámico y página 404 personalizada.
+- Logo optimizado con `priority` y `Image` de Next.js.
 
 ---
 
-### FASE 4 — Página de detalle de servicio
-**Objetivo:** `/servicios/[slug]` funcionando con datos hardcodeados.
+### BLOQUE 4: Backend e Integraciones Reales (COMPLETADO ✅)
 
-**Prompt específico:**
-```
-Estamos en la FASE 4 — Página detalle de servicio.
-Crea app/(public)/servicios/[slug]/page.tsx
-Los datos vienen de un archivo lib/data/servicios.ts con datos hardcodeados.
-Cada servicio tiene: slug, nombre, descripción larga, beneficios (array), precio desde (número).
-Incluye: generateStaticParams para los 5 slugs y generateMetadata para SEO.
-Si el slug no existe, redirige a /404.
-```
+#### Subparte 4.1: Persistencia y Base de Datos (COMPLETADO ✅)
+- [x] `lib/supabase/client.ts` — Cliente público de Supabase.
+- [x] `lib/supabase/server.ts` — Cliente server-side con SERVICE_ROLE.
+- [x] `app/api/contacto/route.ts` — Guarda mensajes en la tabla `mensajes`.
+- **ACCIÓN REQUERIDA:** Llenar el `.env.local` con las claves de Supabase y crear la tabla `mensajes`.
 
----
-
-### FASE 5 — Página de contacto + API
-**Objetivo:** Formulario funcional que guarda en Supabase y envía email con Resend.
-
-**5a — Formulario:**
-```
-Estamos en la FASE 5a — Página de contacto.
-Crea app/(public)/contacto/page.tsx y components/forms/ContactForm.tsx
-El formulario tiene: nombre, email, teléfono (opcional), servicio de interés (select), mensaje.
-Valida con Zod en el cliente antes de enviar.
-Al enviar hace POST a /api/contacto.
-Muestra estado: cargando, éxito, error.
-Incluye también: botón de WhatsApp y texto para agendar cita (link a Calendly o similar, placeholder por ahora).
-```
-
-**5b — API Route:**
-```
-Estamos en la FASE 5b — API Route de contacto.
-Crea app/api/contacto/route.ts
-Debe:
-1. Validar el body con Zod (mismo schema del formulario)
-2. Guardar el mensaje en la tabla "mensajes" de Supabase
-3. Enviar email de notificación con Resend
-4. Aplicar rate limiting básico
-5. Retornar respuestas claras de éxito y error
-
-Usa las variables de entorno del .env.local.
-```
+#### Subparte 4.2: Notificaciones y Seguridad (COMPLETADO ✅)
+- [x] `lib/email/resend.ts` — Cliente de Resend configurado.
+- [x] Email HTML de notificación integrado en la API de contacto.
+- [x] Rate limiting básico in-memory (3 intentos por minuto por IP).
+- **ACCIÓN REQUERIDA:** Llenar el `.env.local` con la clave `RESEND_API_KEY`.
 
 ---
 
-### FASE 6 — SEO y detalles finales del MVP
-**Objetivo:** Metadata, Open Graph, sitemap y página 404.
+### BLOQUE 5: Lanzamiento y Administración (COMPLETADO ✅)
 
-**Prompt específico:**
-```
-Estamos en la FASE 6 — SEO y detalles finales.
-Necesito:
-1. Metadata global en app/layout.tsx (title, description, Open Graph para Cauralis)
-2. Metadata específica en / y /contacto
-3. app/sitemap.ts con las rutas públicas
-4. app/not-found.tsx → página 404 con diseño consistente y link al home
-5. Revisar que todas las imágenes tengan alt text correcto
-```
+#### Subparte 5.1: Despliegue y Producción (LISTO PARA DEPLOY ✅)
+- [x] `.env.example` creado con todas las variables necesarias e instrucciones.
+- [ ] **PENDIENTE (acción manual): Subir a GitHub y conectar con Vercel.**
+- [ ] **PENDIENTE (acción manual): Configurar las variables de entorno en Vercel.**
+- [ ] **PENDIENTE (acción manual): Apuntar el dominio `cauralis.com` a Vercel.**
 
----
-
-### FASE 7 — Deploy
-**Objetivo:** Proyecto en producción en Vercel conectado a Supabase.
-
-**Prompt específico:**
-```
-Estamos en la FASE 7 — Deploy.
-Guíame paso a paso para:
-1. Conectar el repo de GitHub a Vercel
-2. Configurar las variables de entorno en Vercel
-3. Configurar el dominio personalizado
-4. Verificar que Supabase tenga las políticas de seguridad (RLS) correctas para las tablas
-5. Checklist final antes de lanzar
-```
+#### Subparte 5.2: Panel de Gestión "Aurora" (COMPLETADO ✅)
+- [x] `lib/auth/jwt.ts` — Utilidades de JWT (sign, verify, getSession).
+- [x] `app/api/auth/login/route.ts` — Login con bcrypt + cookie HttpOnly.
+- [x] `app/api/auth/logout/route.ts` — Cierre de sesión.
+- [x] `middleware.ts` — Protección de rutas `/aurora/*`.
+- [x] `app/(admin)/aurora/page.tsx` — Página de Login estilizada.
+- [x] `app/(admin)/aurora/dashboard/page.tsx` — Dashboard (Server Component).
+- [x] `app/(admin)/aurora/dashboard/DashboardClient.tsx` — UI de mensajes con detalle.
 
 ---
 
-### FASE 8 (V2) — Panel de administración
-**Objetivo:** Login seguro y CRUD de productos y mensajes.
+## ✅ Checklist de Progreso General
 
-> Empieza esta fase solo cuando el MVP esté desplegado y funcionando.
-
-**Prompt específico:**
-```
-Estamos en la FASE 8 — Panel Admin (V2).
-Construye el sistema de autenticación para el admin:
-1. app/api/auth/login/route.ts → valida email+password con bcrypt, genera JWT, setea cookie HttpOnly
-2. app/api/auth/logout/route.ts → limpia la cookie
-3. middleware.ts → protege todas las rutas /aurora/* excepto /aurora (login)
-4. app/(admin)/aurora/page.tsx → formulario de login simple
-5. app/(admin)/aurora/dashboard/page.tsx → página protegida con resumen básico
-
-La ruta oculta es "aurora". JWT_SECRET viene del .env.local.
-```
+- [x] **BLOQUE 1: Cimientos**
+- [x] **BLOQUE 2: Frontend Público**
+- [x] **BLOQUE 3: SEO y Conversión**
+- [x] **BLOQUE 4: Backend e Integración**
+    - [x] 4.1: Supabase — Base de Datos
+    - [x] 4.2: Resend — Notificaciones + Seguridad
+- [x] **BLOQUE 5: Lanzamiento y Admin**
+    - [~] 5.1: Deploy (código listo, falta configuración manual en Vercel)
+    - [x] 5.2: Panel Aurora (Login + Dashboard)
 
 ---
 
-## ✅ Checklist de progreso
+## 🔑 PRÓXIMOS PASOS MANUALES (Lo que debes hacer tú)
 
-- [ ] FASE 1 — Setup del proyecto
-- [ ] FASE 2 — Layout base (Header + Footer)
-- [ ] FASE 3a — Hero
-- [ ] FASE 3b — Sección Servicios
-- [ ] FASE 3c — Portfolio
-- [ ] FASE 3d — CTA Contacto en home
-- [ ] FASE 4 — Detalle de servicio /servicios/[slug]
-- [ ] FASE 5a — Página /contacto + formulario
-- [ ] FASE 5b — API Route /api/contacto
-- [ ] FASE 6 — SEO + 404
-- [ ] FASE 7 — Deploy en Vercel
-- [ ] FASE 8 — Panel admin (V2)
+1.  **Llenar `.env.local`** con las claves reales (ver `.env.example` como guía).
+2.  **Crear la tabla `mensajes` en Supabase** con las columnas: `id, nombre, email, telefono, servicio, mensaje, leido, created_at`.
+3.  **Generar el hash de tu contraseña** admin con: `node -e "const b=require('bcryptjs'); b.hash('TU_CONTRASEÑA',12).then(console.log)"`
+4.  **Subir a GitHub** y conectar el repositorio con Vercel.
+5.  **Configurar las variables de entorno** en Vercel (copiar las del `.env.local`).
+6.  **Conectar el dominio** `cauralis.com` en el panel de Vercel.
