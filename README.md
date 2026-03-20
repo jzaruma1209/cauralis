@@ -1,3 +1,12 @@
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:3178C6,100:48CAE4&height=160&section=header&text=Cauralis&fontSize=50&fontColor=ffffff&fontAlignY=45&desc=Full%20Stack%20App%20·%20Next.js%20·%20TypeScript&descAlignY=68&descSize=16&animation=fadeIn" alt="header"/>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white"/>
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"/>
+  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black"/>
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white"/>
+</p>
+
 # 🌐 Cauralis — Sitio Web Oficial
 
 > Plataforma digital de productos y servicios tecnológicos.  
@@ -165,5 +174,11 @@ ADMIN_PASSWORD_HASH=
 - [`.env.example`](./.env.example) — Plantilla de variables de entorno
 
 ---
+
+## 👤 Autor
+
+**Jefferson Paul Zaruma Lopez** — [GitHub](https://github.com/jzaruma1209) · [Portafolio](https://portafoliopz.vercel.app)
+
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:48CAE4,100:3178C6&height=80&section=footer" alt="footer"/>
 
 *Cauralis © 2025 — Productos digitales que generan resultados.*
