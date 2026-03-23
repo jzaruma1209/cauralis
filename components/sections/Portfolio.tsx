@@ -49,7 +49,7 @@ export default function Portfolio() {
   return (
     <section
       id="portfolio"
-      className="relative py-28 lg:py-36"
+      className="relative py-20 lg:py-24 scroll-mt-0"
       aria-label="Portfolio de trabajos"
     >
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-700/50 to-transparent" />

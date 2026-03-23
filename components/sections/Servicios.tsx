@@ -1,3 +1,6 @@
+"use client";
+
+import { useRef } from "react";
 import Link from "next/link";
 import {
   Globe,
@@ -7,6 +10,12 @@ import {
   ShoppingCart,
   ChevronRight,
 } from "lucide-react";
+
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const servicios = [
   {
@@ -67,17 +76,62 @@ const servicios = [
 ];
 
 export default function Servicios() {
+  const container = useRef<HTMLElement>(null);
+  const elementsContainer = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    // Both animations share the same scroll trigger so they sync nicely
+    const ctx = gsap.context(() => {
+      // 1. Container Drop Down Animation
+      gsap.fromTo(elementsContainer.current, 
+        { y: -50, opacity: 0 }, 
+        { 
+          y: 0, 
+          opacity: 1, 
+          duration: 0.8, 
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: container.current,
+            start: "top 80%", // Animates when top of section hits 80% of window height
+            once: true, // Only play once
+          }
+        }
+      );
+  
+      // 2. Cards Staggered Slide In Animation from Right
+      gsap.fromTo(".service-card", 
+        { x: 50, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.1, // 0.1s delay between each card
+          ease: "power2.out",
+          delay: 0.4, // Wait bit for the container drop to start
+          scrollTrigger: {
+            trigger: container.current,
+            start: "top 80%",
+            once: true,
+          }
+        }
+      );
+    });
+
+    return () => ctx.revert();
+  }, { scope: container });
+
   return (
     <section
       id="servicios"
-      className="relative py-28 lg:py-36"
+      ref={container}
+      className="relative py-20 lg:py-24 overflow-hidden scroll-mt-0"
       aria-label="Nuestros Servicios"
     >
       {/* Subtle background */}
       <div className="absolute inset-0 bg-slate-900/30 pointer-events-none" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-700/50 to-transparent" />
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
+      <div ref={elementsContainer} className="relative max-w-7xl mx-auto px-6 lg:px-10">
         {/* ── Header ───────────────────────────────── */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
           <div className="max-w-2xl">
@@ -101,7 +155,7 @@ export default function Servicios() {
             return (
               <div
                 key={servicio.slug}
-                className={`group relative bg-accent-blue/60 rounded-2xl p-8 border border-slate-800 card-hover hover:shadow-xl ${servicio.hoverGlow} backdrop-blur-sm`}
+                className={`service-card group relative bg-accent-blue/60 rounded-2xl p-8 border border-slate-800 card-hover hover:shadow-xl ${servicio.hoverGlow} backdrop-blur-sm`}
               >
                 {/* Top color accent line */}
                 <div className={`absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-current to-transparent ${servicio.acento} opacity-0 group-hover:opacity-30 transition-opacity duration-300`} />
@@ -136,7 +190,7 @@ export default function Servicios() {
           })}
 
           {/* CTA card */}
-          <div className="cta-gradient rounded-2xl p-8 flex flex-col justify-between min-h-[280px] relative overflow-hidden">
+          <div className="service-card cta-gradient rounded-2xl p-8 flex flex-col justify-between min-h-[280px] relative overflow-hidden">
             {/* Decorative circles */}
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full pointer-events-none" />
             <div className="absolute -bottom-6 -left-6 w-28 h-28 bg-white/5 rounded-full pointer-events-none" />

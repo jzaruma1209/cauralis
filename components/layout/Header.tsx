@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
@@ -14,12 +14,36 @@ const navLinks = [
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Update background and shadow
+      setIsScrolled(currentScrollY > 20);
+
+      const scrollDiff = currentScrollY - lastScrollY.current;
+
+      // Only evaluate direction if scroll distance in this event is meaningful (prevents bounce back triggers)
+      if (Math.abs(scrollDiff) > 5) {
+        if (scrollDiff > 0 && currentScrollY > 80 && !isMenuOpen) {
+          // Scrolling down
+          setIsVisible(false);
+        } else if (scrollDiff < 0) {
+          // Scrolling up
+          setIsVisible(true);
+        }
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isMenuOpen]);
 
   // Close menu on resize to desktop
   useEffect(() => {
@@ -32,9 +56,9 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 glass-header transition-all duration-300 ${
-        isScrolled ? "shadow-lg shadow-black/25" : ""
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? "glass-header shadow-lg shadow-black/25" : "bg-transparent"
+      } ${isVisible ? "translate-y-0" : "-translate-y-full"}`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
         {/* Logo */}
