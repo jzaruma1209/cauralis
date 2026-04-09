@@ -174,7 +174,7 @@ export default function Hero() {
               {floatingCards.map((item) => (
                 <div
                   key={item.title}
-                  className="bg-slate-900/75 backdrop-blur-sm border border-slate-700/60 rounded-xl px-5 py-4 flex items-center gap-4 hover:border-primary/40 hover:bg-slate-900/90 transition-all duration-300 group cursor-default"
+                  className="bg-slate-900/75 backdrop-blur-sm border border-slate-700/60 rounded-xl px-5 py-4 flex items-center gap-4 hover:border-primary/40 hover:bg-slate-900/90 hover:scale-[1.03] hover:-translate-y-1 hover:shadow-[0_4px_20px_rgba(6,191,173,0.15)] hover:z-20 transition-all duration-300 group cursor-default relative z-10"
                 >
                   <span className="text-2xl shrink-0" aria-hidden="true">
                     {item.icon}

@@ -1,24 +1,29 @@
 import { NextResponse } from "next/server";
-import bcrypt from "bcryptjs";
 import { signToken, COOKIE_NAME } from "@/lib/auth/jwt";
 
 export async function POST(req: Request) {
   try {
-    const { email, password } = await req.json();
+    let { email, password } = await req.json();
+    email = email?.trim();
+    password = password?.trim();
 
-    const adminEmail = process.env.ADMIN_EMAIL;
-    const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH;
+    const adminEmail = process.env.ADMIN_EMAIL?.trim();
+    const adminPassword = process.env.ADMIN_PASSWORD?.trim();
 
-    if (!adminEmail || !adminPasswordHash) {
+    if (!adminEmail || !adminPassword) {
+      console.error("[LOGIN] Variables de entorno faltantes:", {
+        hasEmail: !!adminEmail,
+        hasPassword: !!adminPassword,
+      });
       return NextResponse.json(
         { error: "Configuración de admin incompleta en el servidor." },
         { status: 500 }
       );
     }
 
-    // Verificar credenciales
+    // Verificar credenciales directamente
     const emailMatch = email === adminEmail;
-    const passwordMatch = await bcrypt.compare(password, adminPasswordHash);
+    const passwordMatch = password === adminPassword;
 
     if (!emailMatch || !passwordMatch) {
       // Espera artificial para evitar timing attacks

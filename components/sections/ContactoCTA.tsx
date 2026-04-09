@@ -51,7 +51,7 @@ export default function ContactoCTA() {
                 <ArrowRight size={18} />
               </Link>
               <a
-                href="https://wa.me/1234567890?text=Hola%20Cauralis%2C%20me%20interesa%20un%20proyecto"
+                href="https://wa.me/593990099265?text=Hola%20Cauralis%2C%20me%20interesa%20un%20proyecto"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-8 py-4 rounded-xl border border-slate-600/80 bg-slate-800/50 hover:bg-slate-800 hover:border-slate-500 font-bold text-base transition-all inline-flex items-center justify-center gap-2 whitespace-nowrap backdrop-blur-sm"

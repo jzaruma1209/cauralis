@@ -30,7 +30,7 @@ export default function ContactoPage() {
                 </div>
                 <div>
                   <div className="text-slate-100 font-bold">Email</div>
-                  <div className="text-slate-400 text-sm">hola@cauralis.com</div>
+                  <div className="text-slate-400 text-sm">zpaul3981@gmail.com</div>
                 </div>
               </div>
 
@@ -40,7 +40,14 @@ export default function ContactoPage() {
                 </div>
                 <div>
                   <div className="text-slate-100 font-bold">WhatsApp</div>
-                  <div className="text-slate-400 text-sm">+1 (555) 123-4567</div>
+                  <a 
+                    href="https://wa.me/593990099265" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-slate-400 text-sm hover:text-lima transition-colors"
+                  >
+                    +593 99 009 9265
+                  </a>
                 </div>
               </div>
 

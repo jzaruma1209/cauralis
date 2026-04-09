@@ -133,15 +133,15 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="mailto:hola@cauralis.com"
+                  href="mailto:zpaul3981@gmail.com"
                   className="text-slate-500 text-sm hover:text-primary transition-colors"
                 >
-                  hola@cauralis.com
+                  zpaul3981@gmail.com
                 </a>
               </li>
               <li>
                 <a
-                  href="https://wa.me/1234567890"
+                  href="https://wa.me/593990099265"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-slate-500 text-sm hover:text-primary transition-colors"
