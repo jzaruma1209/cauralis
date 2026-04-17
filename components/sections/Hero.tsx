@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, Zap } from "lucide-react";
+import CountUp from "@/components/animations/CountUp";
+
 
 const floatingCards = [
   {
@@ -11,6 +13,7 @@ const floatingCards = [
     desc: "Conversión optimizada",
     color: "text-primary",
     delay: "0ms",
+    href: "/servicios/landing-pages",
   },
   {
     icon: "💳",
@@ -18,6 +21,7 @@ const floatingCards = [
     desc: "Networking moderno",
     color: "text-lima",
     delay: "120ms",
+    href: "/servicios/tarjetas-digitales",
   },
   {
     icon: "📦",
@@ -25,6 +29,7 @@ const floatingCards = [
     desc: "Muestra tu negocio",
     color: "text-secondary",
     delay: "240ms",
+    href: "/servicios/catalogos-digitales",
   },
   {
     icon: "⚡",
@@ -32,6 +37,7 @@ const floatingCards = [
     desc: "Ahorra tiempo",
     color: "text-primary",
     delay: "360ms",
+    href: "/servicios/automatizaciones",
   },
   {
     icon: "🛒",
@@ -39,6 +45,7 @@ const floatingCards = [
     desc: "Vende en línea",
     color: "text-lima",
     delay: "480ms",
+    href: "/servicios/ecommerce",
   },
 ];
 
@@ -73,7 +80,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center py-32 lg:py-0 overflow-hidden">
+    <section className="relative min-h-screen flex items-center pt-20 pb-12 lg:pt-24 lg:pb-16 overflow-hidden">
       {/* ── Background glows ─────────────────────── */}
       <div className="absolute top-[-10%] right-[-5%] w-[650px] h-[650px] bg-primary/10 blur-[130px] rounded-full pointer-events-none" />
       <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-lima/6 blur-[110px] rounded-full pointer-events-none" />
@@ -124,13 +131,19 @@ export default function Hero() {
           {/* Stats */}
           <div className="flex gap-10 mt-12 pt-10 border-t border-slate-800/80">
             {[
-              { value: "50+", label: "Proyectos" },
-              { value: "100%", label: "Satisfacción" },
-              { value: "5★", label: "Calificación" },
+              { to: 50, suffix: "+", label: "Proyectos" },
+              { to: 100, suffix: "%", label: "Satisfacción" },
+              { to: 5, suffix: "★", label: "Calificación" },
             ].map((stat) => (
               <div key={stat.label}>
-                <div className="text-2xl font-bold text-slate-100">
-                  {stat.value}
+                <div className="text-2xl font-bold text-slate-100 flex items-baseline">
+                  <CountUp
+                    from={0}
+                    to={stat.to}
+                    duration={1.5}
+                    className="count-up-text"
+                  />
+                  <span>{stat.suffix}</span>
                 </div>
                 <div className="text-sm text-slate-500 mt-0.5">
                   {stat.label}
@@ -172,9 +185,10 @@ export default function Hero() {
 
               {/* Service cards */}
               {floatingCards.map((item) => (
-                <div
+                <Link
                   key={item.title}
-                  className="bg-slate-900/75 backdrop-blur-sm border border-slate-700/60 rounded-xl px-5 py-4 flex items-center gap-4 hover:border-primary/40 hover:bg-slate-900/90 hover:scale-[1.03] hover:-translate-y-1 hover:shadow-[0_4px_20px_rgba(6,191,173,0.15)] hover:z-20 transition-all duration-300 group cursor-default relative z-10"
+                  href={item.href}
+                  className="bg-slate-900/75 backdrop-blur-sm border border-slate-700/60 rounded-xl px-5 py-4 flex items-center gap-4 hover:border-primary/40 hover:bg-slate-900/90 hover:scale-[1.03] hover:-translate-y-1 hover:shadow-[0_4px_20px_rgba(6,191,173,0.15)] hover:z-20 transition-all duration-300 group cursor-pointer relative z-10"
                 >
                   <span className="text-2xl shrink-0" aria-hidden="true">
                     {item.icon}
@@ -191,7 +205,7 @@ export default function Hero() {
                     size={14}
                     className="shrink-0 text-slate-700 group-hover:text-primary transition-colors"
                   />
-                </div>
+                </Link>
               ))}
 
               {/* Bottom indicator */}
