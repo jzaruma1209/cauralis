@@ -6,9 +6,9 @@ import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { href: "#servicios", label: "Servicios" },
-  { href: "#portfolio", label: "Portfolio" },
-  { href: "#contacto", label: "Contacto" },
+  { href: "/#servicios", label: "Servicios" },
+  { href: "/#portfolio", label: "Portfolio" },
+  { href: "/#contacto", label: "Contacto" },
 ];
 
 export default function Header() {
@@ -90,7 +90,7 @@ export default function Header() {
         {/* CTA + mobile toggle */}
         <div className="flex items-center gap-4">
           <Link
-            href="#contacto"
+            href="/#contacto"
             className="hidden md:inline-flex cta-gradient text-background-dark px-6 py-2.5 rounded-xl text-sm font-bold transition-all"
           >
             <span>Comenzar Proyecto</span>
@@ -124,7 +124,7 @@ export default function Header() {
             </Link>
           ))}
           <Link
-            href="#contacto"
+            href="/#contacto"
             className="cta-gradient text-background-dark px-6 py-3.5 rounded-xl text-sm font-bold text-center mt-3"
             onClick={() => setIsMenuOpen(false)}
           >
