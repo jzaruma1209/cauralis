@@ -61,13 +61,15 @@ export const metadata: Metadata = {
   },
 };
 
+import { TooltipProvider } from "@/components/ui/tooltip";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
+    <html lang="es" suppressHydrationWarning className={cn("font-sans dark", geist.variable)}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -80,7 +82,9 @@ export default function RootLayout({
         className="antialiased text-slate-100"
         style={{ fontFamily: "'DM Sans', sans-serif", backgroundColor: "#0A1426" }}
       >
-        {children}
+        <TooltipProvider>
+          {children}
+        </TooltipProvider>
       </body>
     </html>
   );

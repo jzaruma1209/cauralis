@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   ArrowLeft,
   ExternalLink,
@@ -194,8 +194,8 @@ function DemoCard({
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
         />
 
-        {/* Overlay on hover */}
-        <div className="absolute inset-0 bg-background-dark/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+        {/* Overlay on hover — desktop only */}
+        <div className="absolute inset-0 bg-background-dark/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:flex items-center justify-center gap-3">
           <button
             onClick={onPreview}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-background-dark font-bold text-sm shadow-lg hover:scale-105 active:scale-95 transition-transform"
@@ -212,6 +212,26 @@ function DemoCard({
             <Globe size={15} />
             Abrir Demo
           </a>
+        </div>
+
+        {/* Mobile touch buttons — always visible */}
+        <div className="absolute bottom-3 left-3 right-3 flex gap-2 md:hidden">
+          <button
+            onClick={onPreview}
+            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 rounded-lg bg-primary text-background-dark font-bold text-xs active:scale-95 transition-transform"
+          >
+            <Eye size={12} /> Vista Previa
+          </button>
+          {demo.demoUrl !== "#" && (
+            <a
+              href={demo.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 rounded-lg bg-slate-800/90 border border-slate-600 text-slate-200 font-bold text-xs active:scale-95 transition-transform"
+            >
+              <Globe size={12} /> Demo
+            </a>
+          )}
         </div>
 
         {/* Badges */}
@@ -298,6 +318,15 @@ function PreviewModal({
   demo: DemoLP;
   onClose: () => void;
 }) {
+  // Escape key to close
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [onClose]);
+
   return (
     <div
       className="fixed inset-0 z-[200] flex items-center justify-center p-4"

@@ -82,11 +82,11 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center pt-20 pb-12 lg:pt-24 lg:pb-16 overflow-hidden">
       {/* ── Background glows ─────────────────────── */}
-      <div className="absolute top-[-10%] right-[-5%] w-[650px] h-[650px] bg-primary/10 blur-[130px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-lima/6 blur-[110px] rounded-full pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-accent-blue/20 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-[-10%] right-[-5%] w-[350px] sm:w-[500px] lg:w-[650px] h-[350px] sm:h-[500px] lg:h-[650px] bg-primary/10 blur-[130px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[-5%] w-[280px] sm:w-[400px] lg:w-[500px] h-[280px] sm:h-[400px] lg:h-[500px] bg-lima/6 blur-[110px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] lg:w-[800px] h-[200px] sm:h-[300px] lg:h-[400px] bg-accent-blue/20 blur-[100px] rounded-full pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 w-full grid lg:grid-cols-2 gap-16 xl:gap-24 items-center">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 w-full grid lg:grid-cols-2 gap-12 xl:gap-24 items-center">
         {/* ── LEFT CONTENT ──────────────────────── */}
         <div ref={leftRef} className="relative z-10">
           {/* Badge */}
@@ -98,7 +98,7 @@ export default function Hero() {
           </div>
 
           {/* Headline */}
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.04] mb-6 tracking-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-[1.04] mb-6 tracking-tight">
             Innovando{" "}
             <span className="hero-gradient-text">
               Fronteras Digitales
@@ -112,31 +112,31 @@ export default function Hero() {
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col xs:flex-row sm:flex-row gap-3 sm:gap-4">
             <Link
               href="#servicios"
-              className="cta-gradient glow-hover text-background-dark px-8 py-4 rounded-xl font-bold text-base inline-flex items-center justify-center gap-2"
+              className="cta-gradient glow-hover text-background-dark px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-bold text-sm sm:text-base inline-flex items-center justify-center gap-2"
             >
               <span>Ver Servicios</span>
               <ArrowRight size={18} />
             </Link>
             <Link
               href="#contacto"
-              className="px-8 py-4 rounded-xl border border-slate-700 bg-slate-800/40 hover:bg-slate-800 hover:border-slate-600 font-bold text-base transition-all inline-flex items-center justify-center gap-2 backdrop-blur-sm"
+              className="px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl border border-slate-700 bg-slate-800/40 hover:bg-slate-800 hover:border-slate-600 font-bold text-sm sm:text-base transition-all inline-flex items-center justify-center gap-2 backdrop-blur-sm"
             >
               Contactar
             </Link>
           </div>
 
           {/* Stats */}
-          <div className="flex gap-10 mt-12 pt-10 border-t border-slate-800/80">
+          <div className="flex gap-6 sm:gap-10 mt-10 sm:mt-12 pt-8 sm:pt-10 border-t border-slate-800/80">
             {[
               { to: 50, suffix: "+", label: "Proyectos" },
               { to: 100, suffix: "%", label: "Satisfacción" },
               { to: 5, suffix: "★", label: "Calificación" },
             ].map((stat) => (
               <div key={stat.label}>
-                <div className="text-2xl font-bold text-slate-100 flex items-baseline">
+                <div className="text-xl sm:text-2xl font-bold text-slate-100 flex items-baseline">
                   <CountUp
                     from={0}
                     to={stat.to}
@@ -145,7 +145,7 @@ export default function Hero() {
                   />
                   <span>{stat.suffix}</span>
                 </div>
-                <div className="text-sm text-slate-500 mt-0.5">
+                <div className="text-xs sm:text-sm text-slate-500 mt-0.5">
                   {stat.label}
                 </div>
               </div>
@@ -153,8 +153,8 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ── RIGHT VISUAL ──────────────────────── */}
-        <div ref={rightRef} className="relative z-10">
+        {/* ── RIGHT VISUAL — hidden on mobile, visible on lg+ ──── */}
+        <div ref={rightRef} className="relative z-10 hidden lg:block">
           {/* Outer glow */}
           <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-lima/15 rounded-3xl blur-3xl scale-90 opacity-60 pointer-events-none" />
 
@@ -216,6 +216,22 @@ export default function Hero() {
                 </span>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* ── MOBILE SERVICES GRID (visible only on sm/md) ── */}
+        <div className="lg:hidden w-full">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            {floatingCards.map((item) => (
+              <Link
+                key={item.title}
+                href={item.href}
+                className="bg-slate-900/60 border border-slate-700/60 rounded-xl px-4 py-3.5 flex flex-col items-center gap-2 text-center hover:border-primary/40 active:scale-95 transition-all duration-200"
+              >
+                <span className="text-2xl" aria-hidden="true">{item.icon}</span>
+                <span className={`font-semibold text-xs ${item.color}`}>{item.title}</span>
+              </Link>
+            ))}
           </div>
         </div>
       </div>

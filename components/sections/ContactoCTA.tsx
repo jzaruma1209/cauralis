@@ -7,7 +7,7 @@ export default function ContactoCTA() {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-700/50 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="relative bg-accent-blue/70 rounded-[2rem] p-12 lg:p-20 border border-slate-800 overflow-hidden backdrop-blur-sm">
+        <div className="relative bg-accent-blue/70 rounded-[2rem] p-8 md:p-12 lg:p-20 border border-slate-800 overflow-hidden backdrop-blur-sm">
           {/* Background glows */}
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/12 blur-[120px] rounded-full -translate-y-1/3 translate-x-1/3 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-lima/8 blur-[100px] rounded-full translate-y-1/3 -translate-x-1/3 pointer-events-none" />

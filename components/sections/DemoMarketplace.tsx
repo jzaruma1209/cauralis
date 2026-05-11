@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { Eye, Globe, ExternalLink, ArrowRight, Tag, Star, Sparkles, X } from "lucide-react";
 
@@ -69,8 +70,8 @@ export function DemoCard({
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
         />
 
-        {/* Hover overlay */}
-        <div className="absolute inset-0 bg-background-dark/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+        {/* Hover overlay — hidden on touch/mobile, shown on desktop hover */}
+        <div className="absolute inset-0 bg-background-dark/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:flex items-center justify-center gap-3">
           <button
             onClick={onPreview}
             className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl ${c.btn} font-bold text-sm shadow-lg hover:scale-105 active:scale-95 transition-transform`}
@@ -113,6 +114,26 @@ export function DemoCard({
         </div>
       </div>
 
+        {/* Mobile action buttons — always visible on touch devices */}
+        <div className="flex gap-2 p-3 md:hidden border-b border-slate-800">
+          <button
+            onClick={onPreview}
+            className={`flex-1 inline-flex items-center justify-center gap-2 py-2.5 rounded-xl ${c.btn} font-bold text-sm active:scale-95 transition-transform`}
+          >
+            <Eye size={14} /> Vista Previa
+          </button>
+          {demo.demoUrl !== "#" && (
+            <a
+              href={demo.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 font-bold text-sm active:scale-95 transition-transform"
+            >
+              <Globe size={14} /> Abrir
+            </a>
+          )}
+        </div>
+
       {/* Content */}
       <div className="flex flex-col flex-1 p-6 gap-4">
         <div>
@@ -137,7 +158,7 @@ export function DemoCard({
         <div className="flex items-center justify-between pt-4 mt-auto border-t border-slate-800">
           <button
             onClick={onPreview}
-            className={`inline-flex items-center gap-1.5 ${c.price.split(" ")[0]} font-bold text-sm hover:gap-2.5 transition-all`}
+            className={`hidden md:inline-flex items-center gap-1.5 ${c.price.split(" ")[0]} font-bold text-sm hover:gap-2.5 transition-all`}
           >
             <Eye size={14} /> Vista previa
           </button>
@@ -149,7 +170,7 @@ export function DemoCard({
                 : accent === "secondary"
                 ? "bg-secondary/10 hover:bg-secondary/20 border-secondary/20 hover:border-secondary/40 text-secondary"
                 : "bg-primary/10 hover:bg-primary/20 border-primary/20 hover:border-primary/40 text-primary"
-            }`}
+            } ml-auto`}
           >
             Quiero esta <ArrowRight size={13} />
           </Link>
@@ -171,6 +192,15 @@ export function PreviewModal({
   onClose: () => void;
   accent?: AccentColor;
 }) {
+  // Close on Escape key
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [onClose]);
+
   const iconColor =
     accent === "lima" ? "text-lima bg-lima/15 border-lima/30"
     : accent === "secondary" ? "text-secondary bg-secondary/15 border-secondary/30"

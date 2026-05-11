@@ -54,10 +54,10 @@ export default function Footer() {
       {/* Subtle top glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-10">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 pt-16 sm:pt-20 pb-10">
+        <div className="grid grid-cols-2 md:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 mb-12 sm:mb-16">
           {/* Brand */}
-          <div className="md:col-span-5">
+          <div className="col-span-2 md:col-span-5">
             <Link href="/" className="mb-6 block group w-fit">
               <Image 
                 src="/cauralis-logo.png" 
