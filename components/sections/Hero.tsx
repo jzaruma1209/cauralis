@@ -1,12 +1,13 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { whatsappLink } from "@/lib/site";
 import { tecnologias } from "@/lib/data/contenido";
 
 const productos = [
-  { nombre: "Zapatillas urbanas", precio: "$49", tono: "from-[#123040] to-[#0e1a24]" },
-  { nombre: "Mochila clásica", precio: "$35", tono: "from-[#13302a] to-[#0d1a17]" },
-  { nombre: "Reloj minimal", precio: "$89", tono: "from-[#1a2236] to-[#0f141f]" },
+  { nombre: "Zapatillas de running", precio: "$49", imagen: "/catalogo/zapatillas.webp", ancho: 640, alto: 540, ajuste: "object-cover", fondo: "bg-[#e8e8e8]" },
+  { nombre: "Mochila clásica", precio: "$35", imagen: "/catalogo/mochila.webp", ancho: 353, alto: 484, ajuste: "object-contain p-2", fondo: "bg-white" },
+  { nombre: "Reloj clásico", precio: "$89", imagen: "/catalogo/reloj.webp", ancho: 335, alto: 552, ajuste: "object-contain p-2", fondo: "bg-white" },
 ];
 
 export default function Hero() {
@@ -78,7 +79,16 @@ export default function Hero() {
                   key={p.nombre}
                   className={`overflow-hidden rounded-xl border border-border ${i === 1 ? "hidden sm:block" : ""} ${i === 2 ? "hidden lg:block" : ""}`}
                 >
-                  <div className={`h-32 bg-gradient-to-br ${p.tono}`} />
+                  <div className={`h-40 ${p.fondo}`}>
+                    <Image
+                      src={p.imagen}
+                      alt=""
+                      width={p.ancho}
+                      height={p.alto}
+                      sizes="(min-width: 1024px) 260px, (min-width: 640px) 45vw, 90vw"
+                      className={`h-full w-full ${p.ajuste}`}
+                    />
+                  </div>
                   <div className="p-4">
                     <p className="text-sm font-medium">{p.nombre}</p>
                     <p className="mt-1 text-sm text-subtle">{p.precio}</p>

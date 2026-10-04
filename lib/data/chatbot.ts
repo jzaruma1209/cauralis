@@ -66,3 +66,13 @@ export const diferenciales = [
     texto: "Lo configuramos, lo medimos y lo mejoramos contigo. Hablas directo con quien lo construyó.",
   },
 ];
+
+// Promoción con cuenta regresiva (arriba de la sección de chatbots).
+// Cambia la fecha de fin o pon activa: false para ocultarla. Al terminar el tiempo se oculta sola.
+export const promoChatbot = {
+  activa: true,
+  termina: "2026-10-31T23:59:59-05:00", // hora de Ecuador
+  // Si escribes un valor (por ejemplo "20%"), se muestra al abrir el regalo.
+  descuento: "",
+  mensajeWhatsapp: "Hola Cauralis, abrí el regalo de la página y quiero reclamar mi descuento en el chatbot",
+};

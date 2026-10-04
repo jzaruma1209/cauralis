@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   BrainCircuit,
@@ -12,6 +13,7 @@ import {
 } from "lucide-react";
 import { comoFunciona, conChatbot, conversacion, diferenciales, sinChatbot } from "@/lib/data/chatbot";
 import { whatsappBotLink, whatsappLink } from "@/lib/site";
+import PromoChatbot from "@/components/sections/PromoChatbot";
 
 const iconos = {
   canales: MessagesSquare,
@@ -62,7 +64,9 @@ function CelularChat() {
         <div className="flex h-full flex-col overflow-hidden rounded-[34px] bg-[#0b1015]">
           {/* Cabecera del chat */}
           <div className="flex items-center gap-3 border-b border-white/[0.06] bg-[#11171e] px-4 pb-3 pt-5">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary text-[13px] font-semibold">TN</span>
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-secondary">
+              <Image src="/logo-mark.png" alt="Cauralis" width={22} height={22} className="h-[22px] w-[22px]" />
+            </span>
             <div className="min-w-0 flex-1">
               <p className="truncate text-[14px] font-semibold">Tu negocio</p>
               <p className="flex items-center gap-1.5 text-[11px] text-brand-2">
@@ -118,6 +122,8 @@ function CelularChat() {
 export default function Chatbots() {
   return (
     <section id="chatbots" className="mx-auto max-w-[1200px] scroll-mt-20 px-5 pt-32 sm:px-6 lg:pt-40" aria-labelledby="chatbots-titulo">
+      <PromoChatbot />
+
       {/* Intro + celular */}
       <div className="grid items-center gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
         <div>
