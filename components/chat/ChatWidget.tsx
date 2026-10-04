@@ -111,7 +111,7 @@ export default function ChatWidget() {
       >
         <div className="flex items-center gap-3 border-b border-border px-4 py-3.5">
           <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary">
-            <Image src="/logo-mark.png" alt="" width={24} height={24} className="h-6 w-6" />
+            <Image src="/logo-mark-64.png" alt="" width={24} height={24} unoptimized className="h-6 w-6" />
             <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-card bg-brand-2" />
           </span>
           <div className="min-w-0 flex-1">

@@ -100,57 +100,66 @@ export default function PromoChatbot() {
   const textoDescuento = promoChatbot.descuento ? `un ${promoChatbot.descuento} de descuento` : "un descuento especial";
 
   return (
-    <div className="relative mb-20 overflow-hidden rounded-3xl border border-red-500/40 bg-[linear-gradient(120deg,rgb(127_29_29/0.35),rgb(12_16_22/0.9)_55%,rgb(127_29_29/0.25))] p-6 shadow-[0_0_80px_rgb(239_68_68/0.12)] sm:p-8">
+    <div className="relative mb-14 overflow-hidden rounded-3xl border border-red-500/40 bg-[linear-gradient(120deg,rgb(127_29_29/0.35),rgb(12_16_22/0.9)_55%,rgb(127_29_29/0.25))] p-5 shadow-[0_0_80px_rgb(239_68_68/0.12)] sm:mb-20 sm:p-8">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -left-20 -top-24 h-72 w-72 rounded-full bg-[radial-gradient(closest-side,rgb(239_68_68/0.28),transparent)]"
       />
 
-      <div className="relative flex flex-col items-center gap-8 text-center lg:flex-row lg:gap-10 lg:text-left">
-        <CajaRegalo abierta={abierta} onAbrir={() => setAbierta(true)} />
+      <div className="relative flex flex-col gap-5 sm:gap-8 lg:flex-row lg:items-center lg:gap-10">
+        <div className="flex flex-1 items-center gap-4 sm:gap-8">
+        {/* En celular el regalo se dibuja al 70% para ocupar menos */}
+        <div className="relative h-[90px] w-[90px] shrink-0 sm:h-32 sm:w-32">
+          <div className="absolute left-0 top-0 origin-top-left scale-[0.7] sm:scale-100">
+            <CajaRegalo abierta={abierta} onAbrir={() => setAbierta(true)} />
+          </div>
+        </div>
 
         <div className="min-w-0 flex-1" aria-live="polite">
           {!abierta ? (
             <>
-              <p className="inline-flex items-center gap-2 rounded-full bg-red-500/15 px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-red-400">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-red-500" /> Oferta por tiempo limitado
+              <p className="inline-flex items-center gap-1.5 rounded-full bg-red-500/15 px-2.5 py-1 text-[10px] font-bold sm:gap-2 sm:px-3 sm:text-xs uppercase tracking-[0.08em] text-red-400">
+                <span className="h-2 w-2 animate-pulse rounded-full bg-red-500" />
+                <span className="sm:hidden">Oferta limitada</span>
+                <span className="hidden sm:inline">Oferta por tiempo limitado</span>
               </p>
-              <h3 className="mt-3 text-[clamp(1.6rem,3vw,2.25rem)] font-semibold leading-tight tracking-[-0.03em]">
+              <h3 className="mt-2 text-[clamp(1.2rem,3vw,2.25rem)] sm:mt-3 font-semibold leading-tight tracking-[-0.03em]">
                 Obtén un descuento en tu <span className="text-red-400">chatbot</span>
               </h3>
-              <p className="mt-2 text-muted-foreground">Solo por tiempo limitado. Toca el regalo y descubre tu descuento.</p>
+              <p className="mt-1.5 text-[13px] leading-snug text-muted-foreground sm:mt-2 sm:text-base">Solo por tiempo limitado. Toca el regalo y descubre tu descuento.</p>
             </>
           ) : (
             <>
-              <p className="inline-flex items-center gap-2 rounded-full bg-brand-2/15 px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-brand-2">
+              <p className="inline-flex items-center gap-2 rounded-full bg-brand-2/15 px-2.5 py-1 text-[10px] font-bold sm:px-3 sm:text-xs uppercase tracking-[0.08em] text-brand-2">
                 ¡Regalo desbloqueado!
               </p>
-              <h3 className="mt-3 text-[clamp(1.6rem,3vw,2.25rem)] font-semibold leading-tight tracking-[-0.03em]">
+              <h3 className="mt-2 text-[clamp(1.2rem,3vw,2.25rem)] sm:mt-3 font-semibold leading-tight tracking-[-0.03em]">
                 Tienes {textoDescuento} en tu chatbot
               </h3>
               <a
                 href={whatsappLink(promoChatbot.mensajeWhatsapp)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-5 inline-flex h-13 items-center justify-center gap-2.5 rounded-xl bg-[#25d366] px-6 font-semibold text-[#06281a] shadow-[0_10px_30px_rgb(37_211_102/0.3)] transition-transform hover:scale-[1.03]"
+                className="mt-3 inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-[#25d366] px-4 text-sm font-semibold sm:mt-5 sm:h-13 sm:gap-2.5 sm:px-6 sm:text-base text-[#06281a] shadow-[0_10px_30px_rgb(37_211_102/0.3)] transition-transform hover:scale-[1.03]"
               >
-                <MessageCircle size={19} aria-hidden="true" /> Reclamar mi descuento en WhatsApp
+                <MessageCircle size={19} aria-hidden="true" /> Reclamar en WhatsApp
               </a>
             </>
           )}
         </div>
+        </div>
 
         <div className="shrink-0">
-          <p className="mb-3 flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-red-300 lg:justify-start">
+          <p className="mb-2.5 flex items-center gap-2 text-[11px] sm:mb-3 sm:justify-center sm:text-xs font-semibold uppercase tracking-[0.08em] text-red-300 lg:justify-start">
             <Timer size={15} aria-hidden="true" /> Termina en
           </p>
-          <div className="flex gap-2 sm:gap-3" role="timer" aria-label={`Quedan ${tiempo.map((t) => `${t.valor} ${t.etiqueta}`).join(", ")}`}>
+          <div className="grid grid-cols-4 gap-2 sm:flex sm:gap-3" role="timer" aria-label={`Quedan ${tiempo.map((t) => `${t.valor} ${t.etiqueta}`).join(", ")}`}>
             {tiempo.map((t) => (
-              <div key={t.etiqueta} className="flex min-w-[62px] flex-col items-center rounded-xl border border-red-500/40 bg-red-500/10 px-2 py-2.5 sm:min-w-[70px]">
-                <span className="font-mono text-[28px] font-bold leading-none tabular-nums text-red-400 sm:text-[32px]">
+              <div key={t.etiqueta} className="flex flex-col items-center rounded-xl border border-red-500/40 bg-red-500/10 px-1 py-2 sm:min-w-[70px] sm:px-2 sm:py-2.5">
+                <span className="font-mono text-[24px] font-bold leading-none tabular-nums text-red-400 sm:text-[32px]">
                   {String(t.valor).padStart(2, "0")}
                 </span>
-                <span className="mt-1.5 text-[11px] uppercase tracking-[0.06em] text-red-300/80">{t.etiqueta}</span>
+                <span className="mt-1 text-[10px] uppercase sm:mt-1.5 sm:text-[11px] tracking-[0.06em] text-red-300/80">{t.etiqueta}</span>
               </div>
             ))}
           </div>

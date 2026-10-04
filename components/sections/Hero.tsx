@@ -13,7 +13,7 @@ const productos = [
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden pt-36 sm:pt-44">
+    <section className="relative overflow-hidden pt-28 sm:pt-44">
       <div
         className="pointer-events-none absolute left-1/2 top-[-260px] h-[560px] w-[960px] max-w-[160vw] -translate-x-1/2 bg-[radial-gradient(closest-side,rgb(34_195_230/0.16),rgb(61_212_122/0.06)_60%,transparent)]"
         aria-hidden="true"
@@ -32,17 +32,17 @@ export default function Hero() {
           <TituloPorLineas
             lineas={["Software que trabaja", "para tu negocio."]}
             retraso={0.15}
-            className="mt-7 max-w-4xl text-[clamp(2.6rem,7vw,5.25rem)] font-semibold leading-[1.02] tracking-[-0.045em]"
+            className="mt-6 max-w-4xl text-[clamp(2.15rem,7vw,5.25rem)] sm:mt-7 font-semibold leading-[1.02] tracking-[-0.045em]"
           />
 
           <Aparecer retraso={0.55}>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:mt-6 sm:text-xl">
               Landing pages, catálogos, tiendas online y automatizaciones hechas a medida. Diseño cuidado, código
               propio y soporte directo con quien lo construye.
             </p>
           </Aparecer>
 
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-8 flex w-full flex-col gap-3 sm:mt-10 sm:w-auto sm:flex-row">
             <Aparecer retraso={0.7} className="flex flex-col">
               <Link
                 href="/contacto"
@@ -64,17 +64,17 @@ export default function Hero() {
           </div>
 
           {/* Ejemplo de producto: un catálogo digital */}
-          <Aparecer retraso={0.95} y={48} duracion={1.1} desenfoque={false} className="mt-20 w-full max-w-[1080px]">
+          <Aparecer retraso={0.95} y={48} duracion={1.1} desenfoque={false} className="mt-12 w-full max-w-[1080px] sm:mt-20">
             <div
               role="img"
               aria-label="Ejemplo de un catálogo digital con pedido por WhatsApp"
               className="w-full overflow-hidden rounded-2xl border border-border bg-card text-left shadow-[0_40px_120px_rgb(0_0_0/0.55),inset_0_1px_0_rgb(255_255_255/0.05)]"
             >
-              <div className="flex h-11 items-center gap-2 border-b border-border px-4">
+              <div className="flex h-9 items-center gap-1.5 border-b border-border px-3 sm:h-11 sm:gap-2 sm:px-4">
                 <span className="h-2.5 w-2.5 rounded-full bg-secondary" />
                 <span className="h-2.5 w-2.5 rounded-full bg-secondary" />
                 <span className="h-2.5 w-2.5 rounded-full bg-secondary" />
-                <span className="ml-4 flex h-6 w-full max-w-sm items-center rounded-md bg-secondary px-3 font-mono text-xs text-subtle">
+                <span className="ml-2 flex h-5 w-full max-w-sm items-center rounded-md bg-secondary px-2.5 font-mono text-[11px] text-subtle sm:ml-4 sm:h-6 sm:px-3 sm:text-xs">
                   tunegocio.com/catalogo
                 </span>
               </div>
@@ -86,15 +86,15 @@ export default function Hero() {
                   <span className="px-3 py-2.5">Más vendidos</span>
                   <span className="px-3 py-2.5">Ofertas</span>
                 </div>
-                <div className="grid flex-1 gap-4 p-5 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid flex-1 grid-cols-2 gap-2.5 p-2.5 sm:gap-4 sm:p-5 lg:grid-cols-3">
                   {productos.map((p, i) => (
                     <Aparecer
                       key={p.nombre}
                       retraso={1.25 + i * 0.1}
                       y={14}
-                      className={`overflow-hidden rounded-xl border border-border ${i === 1 ? "hidden sm:block" : ""} ${i === 2 ? "hidden lg:block" : ""}`}
+                      className={`overflow-hidden rounded-xl border border-border ${i === 2 ? "hidden lg:block" : ""}`}
                     >
-                      <div className={`h-40 ${p.fondo}`}>
+                      <div className={`h-28 sm:h-40 ${p.fondo}`}>
                         <Image
                           src={p.imagen}
                           alt=""
@@ -105,10 +105,10 @@ export default function Hero() {
                           className={`h-full w-full ${p.ajuste}`}
                         />
                       </div>
-                      <div className="p-4">
-                        <p className="text-sm font-medium">{p.nombre}</p>
-                        <p className="mt-1 text-sm text-subtle">{p.precio}</p>
-                        <p className="mt-3 flex h-9 items-center justify-center rounded-lg bg-brand-2/12 text-[13px] font-medium text-brand-2">
+                      <div className="p-2.5 sm:p-4">
+                        <p className="truncate text-[12px] font-medium sm:text-sm">{p.nombre}</p>
+                        <p className="mt-0.5 text-[12px] text-subtle sm:mt-1 sm:text-sm">{p.precio}</p>
+                        <p className="mt-2 flex h-7 items-center justify-center rounded-md bg-brand-2/12 text-[11px] font-medium text-brand-2 sm:mt-3 sm:h-9 sm:rounded-lg sm:text-[13px]">
                           Pedir por WhatsApp
                         </p>
                       </div>
@@ -119,8 +119,8 @@ export default function Hero() {
           </div>
           </Aparecer>
 
-          <Aparecer retraso={1.5} y={8} className="mt-16 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 font-mono text-[13px] text-subtle">
-            <span>Construido con</span>
+          <Aparecer retraso={1.5} y={8} className="mt-10 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-mono text-[11px] text-subtle sm:mt-16 sm:gap-x-10 sm:gap-y-3 sm:text-[13px]">
+            <span className="w-full sm:w-auto">Construido con</span>
             {tecnologias.map((t) => (
               <span key={t} className="text-muted-foreground">
                 {t}

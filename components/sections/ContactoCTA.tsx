@@ -4,19 +4,19 @@ import { whatsappLink } from "@/lib/site";
 
 export default function ContactoCTA() {
   return (
-    <section id="contacto" className="mx-auto max-w-[1200px] scroll-mt-20 px-5 pb-8 pt-32 sm:px-6 lg:pt-40">
-      <div className="relative flex flex-col justify-between gap-10 overflow-hidden rounded-3xl border border-border bg-card p-10 sm:p-14 lg:flex-row lg:items-center lg:p-20">
+    <section id="contacto" className="mx-auto max-w-[1200px] scroll-mt-20 px-5 pb-8 pt-20 sm:px-6 sm:pt-32 lg:pt-40">
+      <div className="relative flex flex-col justify-between gap-8 overflow-hidden rounded-3xl border border-border bg-card p-7 sm:gap-10 sm:p-14 lg:flex-row lg:items-center lg:p-20">
         <div
           className="pointer-events-none absolute -right-32 -top-40 h-[420px] w-[520px] bg-[radial-gradient(closest-side,rgb(34_195_230/0.14),transparent)]"
           aria-hidden="true"
         />
         <div className="relative max-w-2xl">
-          <h2 className="text-[clamp(2rem,4.4vw,3.5rem)] font-semibold leading-[1.04] tracking-[-0.04em]">
+          <h2 className="text-[clamp(1.75rem,4.4vw,3.5rem)] font-semibold leading-[1.04] tracking-[-0.04em]">
             Cuéntanos tu idea.
             <br />
             Te respondemos en 24 horas.
           </h2>
-          <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+          <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:mt-5 sm:text-lg">
             Sin compromiso. Recibes una propuesta con alcance, tiempos y precio cerrado.
           </p>
         </div>
