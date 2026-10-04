@@ -59,6 +59,12 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es" className={cn("dark", geist.variable, geistMono.variable)}>
+      <head>
+        {/* Sin JavaScript no hay animación: mostramos todo directamente */}
+        <noscript>
+          <style>{".anim-entrada{opacity:1!important;transform:none!important;filter:none!important}"}</style>
+        </noscript>
+      </head>
       <body>
         <TooltipProvider>{children}</TooltipProvider>
       </body>
