@@ -91,7 +91,7 @@ export const demosAutomatizaciones: DemoAutomatizacion[] = [
       "Sincronización en tiempo real entre tu inventario físico y tu tienda online. Alertas de stock bajo incluidas.",
     categoria: "Operaciones",
     tags: ["Inventario", "Sync", "Alertas", "Ecommerce"],
-    imagen: "https://images.unsplash.com/photo-1557821552-17105176666c?w=800&h=500&fit=crop&q=80",
+    imagen: "https://images.unsplash.com/photo-1553413077-190dd305871c?w=800&h=500&fit=crop&q=80",
     demoUrl: "#",
     precioDesde: 499,
     destacado: false,

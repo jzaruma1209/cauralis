@@ -1,90 +1,66 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { site } from "@/lib/site";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+// Diseño A · Nocturno preciso: Geist para todo, Geist Mono para etiquetas.
+const geist = Geist({ subsets: ["latin"], variable: "--font-body", display: "swap" });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-code", display: "swap" });
+
+const titulo = "Cauralis | Software y productos digitales para tu negocio";
+const descripcion =
+  "Landing pages, tarjetas digitales, catálogos, automatizaciones y tiendas online hechas a medida para negocios en Ecuador y Latinoamérica.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://cauralis.com"),
-  title: {
-    default: "Cauralis | Productos Digitales Profesionales",
-    template: "%s | Cauralis",
-  },
-  description:
-    "Cauralis ofrece landing pages, tarjetas digitales, catálogos digitales, automatizaciones y ecommerce de alta calidad para impulsar tu negocio.",
+  metadataBase: new URL(site.url),
+  title: { default: titulo, template: "%s | Cauralis" },
+  description: descripcion,
   keywords: [
     "landing pages",
     "tarjetas digitales",
     "catálogos digitales",
     "automatizaciones",
     "ecommerce",
-    "productos digitales",
+    "desarrollo web Ecuador",
     "Cauralis",
   ],
   authors: [{ name: "Cauralis" }],
   creator: "Cauralis",
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
-    locale: "es_ES",
-    url: "https://cauralis.com",
+    locale: "es_EC",
+    url: site.url,
     siteName: "Cauralis",
-    title: "Cauralis | Productos Digitales Profesionales",
-    description:
-      "Landing pages, tarjetas digitales, catálogos, automatizaciones y ecommerce para tu negocio.",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Cauralis - Productos Digitales",
-      },
-    ],
+    title: titulo,
+    description: descripcion,
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Cauralis — Innovative Software Solutions" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cauralis | Productos Digitales Profesionales",
-    description:
-      "Landing pages, tarjetas digitales, catálogos, automatizaciones y ecommerce.",
+    title: titulo,
+    description: descripcion,
     images: ["/og-image.png"],
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
   },
 };
 
-import { TooltipProvider } from "@/components/ui/tooltip";
+export const viewport: Viewport = {
+  themeColor: "#07090d",
+  colorScheme: "dark",
+};
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" suppressHydrationWarning className={cn("font-sans dark", geist.variable)}>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body
-        className="antialiased text-slate-100"
-        style={{ fontFamily: "'DM Sans', sans-serif", backgroundColor: "#0A1426" }}
-      >
-        <TooltipProvider>
-          {children}
-        </TooltipProvider>
+    <html lang="es" className={cn("dark", geist.variable, geistMono.variable)}>
+      <body>
+        <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>
   );

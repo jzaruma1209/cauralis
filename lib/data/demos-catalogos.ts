@@ -63,7 +63,7 @@ export const demosCatalogos: DemoCatalogo[] = [
       "Catálogo de gadgets y electrónica con comparador de especificaciones y precios por modelo.",
     categoria: "Tecnología",
     tags: ["Tech", "Comparador", "Gadgets"],
-    imagen: "https://images.unsplash.com/photo-1498049860654-af1a5c5668ba?w=800&h=500&fit=crop&q=80",
+    imagen: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?w=800&h=500&fit=crop&q=80",
     demoUrl: "#",
     precioDesde: 299,
     destacado: false,

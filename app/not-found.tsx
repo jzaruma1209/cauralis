@@ -1,21 +1,19 @@
 import Link from "next/link";
-import { MoveLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[70vh] px-6 text-center">
-      <div className="text-9xl font-bold hero-gradient-text mb-4 opacity-20">404</div>
-      <h1 className="text-4xl font-bold text-slate-100 mb-6">Página no encontrada</h1>
-      <p className="text-slate-400 max-w-md mb-10 leading-relaxed">
-        Lo sentimos, la página que buscas no existe o ha sido movida. 
-        Regresa al inicio para seguir explorando nuestros servicios.
+    <div className="flex min-h-[80vh] flex-col items-center justify-center px-6 text-center">
+      <p className="eyebrow">Error 404</p>
+      <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Esta página no existe</h1>
+      <p className="mt-5 max-w-md leading-relaxed text-muted-foreground">
+        Puede que el enlace esté mal escrito o que la página se haya movido.
       </p>
       <Link
         href="/"
-        className="cta-gradient text-background-dark px-8 py-4 rounded-xl font-bold text-lg inline-flex items-center gap-2 glow-hover"
+        className="mt-10 inline-flex h-12 items-center gap-2 rounded-[var(--radio-boton,0.75rem)] bg-primary px-6 font-semibold text-primary-foreground transition-opacity hover:opacity-90"
       >
-        <MoveLeft size={20} />
-        Volver al Inicio
+        <ArrowLeft size={18} aria-hidden="true" /> Volver al inicio
       </Link>
     </div>
   );

@@ -4,34 +4,40 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Loader2, CheckCircle, AlertCircle, Send } from "lucide-react";
+import { AlertCircle, CheckCircle2, Loader2, Send } from "lucide-react";
+import { servicios } from "@/lib/data/servicios";
 
 const contactSchema = z.object({
   nombre: z.string().min(2, "El nombre es muy corto"),
   email: z.string().email("Email inválido"),
   telefono: z.string().optional(),
   servicio: z.string().min(1, "Selecciona un servicio"),
-  mensaje: z.string().min(10, "El mensaje debe ser más detallado"),
+  mensaje: z.string().min(10, "Cuéntanos un poco más (mínimo 10 caracteres)"),
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
 
 const inputClass =
-  "w-full bg-background-dark/80 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all text-sm";
+  "w-full rounded-xl border border-input bg-background px-4 py-3 text-[15px] text-foreground placeholder:text-subtle transition-colors focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/25 aria-[invalid=true]:border-destructive";
+
+function MensajeError({ id, mensaje }: { id: string; mensaje?: string }) {
+  if (!mensaje) return null;
+  return (
+    <p id={id} className="mt-1.5 flex items-center gap-1.5 text-xs text-destructive">
+      <AlertCircle size={13} aria-hidden="true" /> {mensaje}
+    </p>
+  );
+}
 
 export default function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
-    "idle"
-  );
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<ContactFormValues>({
-    resolver: zodResolver(contactSchema),
-  });
+  } = useForm<ContactFormValues>({ resolver: zodResolver(contactSchema) });
 
   const onSubmit = async (data: ContactFormValues) => {
     setStatus("loading");
@@ -41,9 +47,7 @@ export default function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-
       if (!response.ok) throw new Error("Error al enviar");
-
       setStatus("success");
       reset();
     } catch (error) {
@@ -54,17 +58,16 @@ export default function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="bg-primary/8 border border-primary/20 rounded-2xl p-12 text-center flex flex-col items-center gap-4">
-        <div className="w-20 h-20 rounded-full bg-primary/15 border border-primary/25 flex items-center justify-center mb-2">
-          <CheckCircle className="text-primary" size={40} />
-        </div>
-        <h3 className="text-2xl font-bold text-slate-100">¡Mensaje enviado!</h3>
-        <p className="text-slate-400 max-w-sm leading-relaxed">
-          Gracias por contactarnos. Te responderemos en menos de 24 horas.
+      <div className="flex flex-col items-center gap-4 rounded-3xl border border-border bg-card p-12 text-center" role="status">
+        <CheckCircle2 className="text-brand-2" size={44} aria-hidden="true" />
+        <h2 className="text-2xl font-semibold">¡Mensaje enviado!</h2>
+        <p className="max-w-sm leading-relaxed text-muted-foreground">
+          Gracias por escribirnos. Te responderemos en menos de 24 horas.
         </p>
         <button
+          type="button"
           onClick={() => setStatus("idle")}
-          className="text-primary font-bold hover:underline mt-2 text-sm transition-colors"
+          className="mt-2 h-11 rounded-lg px-4 text-sm font-semibold text-brand hover:bg-muted"
         >
           Enviar otro mensaje
         </button>
@@ -74,57 +77,49 @@ export default function ContactForm() {
 
   return (
     <form
-      className="space-y-6 bg-accent-blue/30 backdrop-blur-sm border border-slate-800 rounded-2xl p-8 lg:p-10"
+      className="space-y-6 rounded-3xl border border-border bg-card p-6 sm:p-10"
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
-      <div className="grid sm:grid-cols-2 gap-6">
-        {/* Nombre */}
-        <div className="space-y-2">
-          <label htmlFor="nombre" className="text-sm font-medium text-slate-300">
-            Nombre completo <span className="text-primary">*</span>
+      <div className="grid gap-6 sm:grid-cols-2">
+        <div>
+          <label htmlFor="nombre" className="mb-2 block text-sm font-medium">
+            Nombre completo
           </label>
           <input
             id="nombre"
             type="text"
             autoComplete="name"
+            aria-invalid={!!errors.nombre}
+            aria-describedby={errors.nombre ? "nombre-error" : undefined}
             {...register("nombre")}
             className={inputClass}
             placeholder="Juan Pérez"
           />
-          {errors.nombre && (
-            <p className="text-red-400 text-xs mt-1 flex items-center gap-1">
-              <AlertCircle size={12} /> {errors.nombre.message}
-            </p>
-          )}
+          <MensajeError id="nombre-error" mensaje={errors.nombre?.message} />
         </div>
-
-        {/* Email */}
-        <div className="space-y-2">
-          <label htmlFor="email" className="text-sm font-medium text-slate-300">
-            Email <span className="text-primary">*</span>
+        <div>
+          <label htmlFor="email" className="mb-2 block text-sm font-medium">
+            Email
           </label>
           <input
             id="email"
             type="email"
             autoComplete="email"
+            aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? "email-error" : undefined}
             {...register("email")}
             className={inputClass}
             placeholder="juan@empresa.com"
           />
-          {errors.email && (
-            <p className="text-red-400 text-xs mt-1 flex items-center gap-1">
-              <AlertCircle size={12} /> {errors.email.message}
-            </p>
-          )}
+          <MensajeError id="email-error" mensaje={errors.email?.message} />
         </div>
       </div>
 
-      <div className="grid sm:grid-cols-2 gap-6">
-        {/* Teléfono */}
-        <div className="space-y-2">
-          <label htmlFor="telefono" className="text-sm font-medium text-slate-300">
-            Teléfono <span className="text-slate-600 font-normal">(opcional)</span>
+      <div className="grid gap-6 sm:grid-cols-2">
+        <div>
+          <label htmlFor="telefono" className="mb-2 block text-sm font-medium">
+            Teléfono <span className="font-normal text-subtle">(opcional)</span>
           </label>
           <input
             id="telefono"
@@ -132,84 +127,76 @@ export default function ContactForm() {
             autoComplete="tel"
             {...register("telefono")}
             className={inputClass}
-            placeholder="+51 987 654 321"
+            placeholder="+593 99 999 9999"
           />
         </div>
-
-        {/* Servicio */}
-        <div className="space-y-2">
-          <label htmlFor="servicio" className="text-sm font-medium text-slate-300">
-            Servicio de interés <span className="text-primary">*</span>
+        <div>
+          <label htmlFor="servicio" className="mb-2 block text-sm font-medium">
+            Servicio de interés
           </label>
           <select
             id="servicio"
+            aria-invalid={!!errors.servicio}
+            aria-describedby={errors.servicio ? "servicio-error" : undefined}
             {...register("servicio")}
-            className={`${inputClass} appearance-none cursor-pointer`}
+            className={`${inputClass} cursor-pointer`}
             defaultValue=""
           >
-            <option value="" disabled>Selecciona una opción</option>
-            <option value="landing-pages">Landing Pages</option>
-            <option value="tarjetas-digitales">Tarjetas Digitales</option>
-            <option value="catalogos-digitales">Catálogos Digitales</option>
-            <option value="automatizaciones">Automatizaciones</option>
-            <option value="ecommerce">Ecommerce</option>
+            <option value="" disabled>
+              Selecciona una opción
+            </option>
+            {servicios.map((s) => (
+              <option key={s.slug} value={s.slug}>
+                {s.nombre}
+              </option>
+            ))}
+            <option value="asesoria">Aún no lo sé, quiero asesoría</option>
           </select>
-          {errors.servicio && (
-            <p className="text-red-400 text-xs mt-1 flex items-center gap-1">
-              <AlertCircle size={12} /> {errors.servicio.message}
-            </p>
-          )}
+          <MensajeError id="servicio-error" mensaje={errors.servicio?.message} />
         </div>
       </div>
 
-      {/* Mensaje */}
-      <div className="space-y-2">
-        <label htmlFor="mensaje" className="text-sm font-medium text-slate-300">
-          ¿Cómo podemos ayudarte? <span className="text-primary">*</span>
+      <div>
+        <label htmlFor="mensaje" className="mb-2 block text-sm font-medium">
+          ¿Cómo podemos ayudarte?
         </label>
         <textarea
           id="mensaje"
-          {...register("mensaje")}
           rows={5}
+          aria-invalid={!!errors.mensaje}
+          aria-describedby={errors.mensaje ? "mensaje-error" : undefined}
+          {...register("mensaje")}
           className={`${inputClass} resize-none`}
-          placeholder="Cuéntanos un poco sobre tu proyecto..."
+          placeholder="Cuéntanos sobre tu negocio y lo que necesitas…"
         />
-        {errors.mensaje && (
-          <p className="text-red-400 text-xs mt-1 flex items-center gap-1">
-            <AlertCircle size={12} /> {errors.mensaje.message}
-          </p>
-        )}
+        <MensajeError id="mensaje-error" mensaje={errors.mensaje?.message} />
       </div>
 
-      {/* Error global */}
       {status === "error" && (
-        <div className="flex items-center gap-2 text-red-400 text-sm bg-red-400/8 p-4 rounded-xl border border-red-400/20">
-          <AlertCircle size={18} className="shrink-0" />
-          Hubo un error al enviar. Por favor intenta de nuevo.
+        <div className="flex items-center gap-2 rounded-xl border border-destructive/30 p-4 text-sm text-destructive" role="alert">
+          <AlertCircle size={18} className="shrink-0" aria-hidden="true" />
+          No pudimos enviar tu mensaje. Inténtalo de nuevo o escríbenos por WhatsApp.
         </div>
       )}
 
-      {/* Submit */}
       <button
         type="submit"
         disabled={status === "loading"}
-        className="w-full cta-gradient text-background-dark font-bold py-4 rounded-xl flex items-center justify-center gap-2.5 hover:opacity-95 transition-opacity disabled:opacity-60"
+        className="flex h-13 w-full items-center justify-center gap-2.5 rounded-[var(--radio-boton,0.75rem)] bg-primary py-3.5 font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-60"
       >
         {status === "loading" ? (
           <>
-            <Loader2 className="animate-spin" size={20} />
-            Enviando...
+            <Loader2 className="animate-spin" size={19} aria-hidden="true" /> Enviando…
           </>
         ) : (
           <>
-            <Send size={18} />
-            Enviar Mensaje
+            <Send size={17} aria-hidden="true" /> Enviar mensaje
           </>
         )}
       </button>
 
-      <p className="text-center text-slate-600 text-xs">
-        Al enviar aceptas que nos pongamos en contacto contigo.
+      <p className="text-center text-xs text-subtle">
+        Al enviar aceptas que te contactemos para responder tu solicitud.
       </p>
     </form>
   );

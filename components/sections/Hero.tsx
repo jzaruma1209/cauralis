@@ -1,238 +1,104 @@
-"use client";
-
-import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { ArrowRight, Zap } from "lucide-react";
-import CountUp from "@/components/animations/CountUp";
+import { ArrowRight, MessageCircle } from "lucide-react";
+import { whatsappLink } from "@/lib/site";
+import { tecnologias } from "@/lib/data/contenido";
 
-
-const floatingCards = [
-  {
-    icon: "🚀",
-    title: "Landing Page",
-    desc: "Conversión optimizada",
-    color: "text-primary",
-    delay: "0ms",
-    href: "/servicios/landing-pages",
-  },
-  {
-    icon: "💳",
-    title: "Tarjeta Digital",
-    desc: "Networking moderno",
-    color: "text-lima",
-    delay: "120ms",
-    href: "/servicios/tarjetas-digitales",
-  },
-  {
-    icon: "📦",
-    title: "Catálogo Digital",
-    desc: "Muestra tu negocio",
-    color: "text-secondary",
-    delay: "240ms",
-    href: "/servicios/catalogos-digitales",
-  },
-  {
-    icon: "⚡",
-    title: "Automatizaciones",
-    desc: "Ahorra tiempo",
-    color: "text-primary",
-    delay: "360ms",
-    href: "/servicios/automatizaciones",
-  },
-  {
-    icon: "🛒",
-    title: "Ecommerce",
-    desc: "Vende en línea",
-    color: "text-lima",
-    delay: "480ms",
-    href: "/servicios/ecommerce",
-  },
+const productos = [
+  { nombre: "Zapatillas urbanas", precio: "$49", tono: "from-[#123040] to-[#0e1a24]" },
+  { nombre: "Mochila clásica", precio: "$35", tono: "from-[#13302a] to-[#0d1a17]" },
+  { nombre: "Reloj minimal", precio: "$89", tono: "from-[#1a2236] to-[#0f141f]" },
 ];
 
 export default function Hero() {
-  const leftRef = useRef<HTMLDivElement>(null);
-  const rightRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const left = leftRef.current;
-    const right = rightRef.current;
-    if (!left || !right) return;
-
-    [left, right].forEach((el, i) => {
-      el.style.opacity = "0";
-      el.style.transform = `translateY(${i === 0 ? "28px" : "20px"})`;
-    });
-
-    const id = requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        left.style.transition = "opacity 0.9s ease-out, transform 0.9s ease-out";
-        left.style.opacity = "1";
-        left.style.transform = "translateY(0)";
-        setTimeout(() => {
-          right.style.transition = "opacity 0.9s ease-out, transform 0.9s ease-out";
-          right.style.opacity = "1";
-          right.style.transform = "translateY(0)";
-        }, 200);
-      });
-    });
-
-    return () => cancelAnimationFrame(id);
-  }, []);
-
   return (
-    <section className="relative min-h-screen flex items-center pt-20 pb-12 lg:pt-24 lg:pb-16 overflow-hidden">
-      {/* ── Background glows ─────────────────────── */}
-      <div className="absolute top-[-10%] right-[-5%] w-[350px] sm:w-[500px] lg:w-[650px] h-[350px] sm:h-[500px] lg:h-[650px] bg-primary/10 blur-[130px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-[-10%] left-[-5%] w-[280px] sm:w-[400px] lg:w-[500px] h-[280px] sm:h-[400px] lg:h-[500px] bg-lima/6 blur-[110px] rounded-full pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] lg:w-[800px] h-[200px] sm:h-[300px] lg:h-[400px] bg-accent-blue/20 blur-[100px] rounded-full pointer-events-none" />
+    <section className="relative overflow-hidden pt-36 sm:pt-44">
+      <div
+        className="pointer-events-none absolute left-1/2 top-[-260px] h-[560px] w-[960px] max-w-[160vw] -translate-x-1/2 bg-[radial-gradient(closest-side,rgb(34_195_230/0.16),rgb(61_212_122/0.06)_60%,transparent)]"
+        aria-hidden="true"
+      />
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 w-full grid lg:grid-cols-2 gap-12 xl:gap-24 items-center">
-        {/* ── LEFT CONTENT ──────────────────────── */}
-        <div ref={leftRef} className="relative z-10">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/25 mb-8 backdrop-blur-sm">
-            <Zap size={13} className="text-primary fill-primary" />
-            <span className="text-xs font-bold uppercase tracking-widest text-primary">
-              Productos Digitales Premium
-            </span>
-          </div>
+      <div className="relative mx-auto flex max-w-[1200px] flex-col items-center px-5 text-center sm:px-6">
+        <p className="animate-aparecer inline-flex items-center gap-2.5 rounded-full border border-border px-3.5 py-2 font-mono text-xs uppercase tracking-[0.06em] text-muted-foreground">
+          <span className="h-1.5 w-1.5 rounded-full bg-brand" aria-hidden="true" />
+          Estudio de software · Ecuador
+        </p>
 
-          {/* Headline */}
-          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-[1.04] mb-6 tracking-tight">
-            Innovando{" "}
-            <span className="hero-gradient-text">
-              Fronteras Digitales
-            </span>
-          </h1>
+        <h1 className="animate-aparecer mt-7 max-w-4xl text-[clamp(2.6rem,7vw,5.25rem)] font-semibold leading-[1.02] tracking-[-0.045em] [animation-delay:80ms]">
+          Software que trabaja
+          <br className="hidden sm:block" /> para tu negocio.
+        </h1>
 
-          {/* Subtitle */}
-          <p className="text-lg lg:text-xl text-slate-400 mb-10 max-w-lg leading-relaxed">
-            Potenciamos negocios con landing pages, tarjetas digitales,
-            catálogos, automatizaciones y ecommerce de alto impacto.
-          </p>
+        <p className="animate-aparecer mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground [animation-delay:160ms] sm:text-xl">
+          Landing pages, catálogos, tiendas online y automatizaciones hechas a medida. Diseño cuidado, código
+          propio y soporte directo con quien lo construye.
+        </p>
 
-          {/* CTAs */}
-          <div className="flex flex-col xs:flex-row sm:flex-row gap-3 sm:gap-4">
-            <Link
-              href="#servicios"
-              className="cta-gradient glow-hover text-background-dark px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-bold text-sm sm:text-base inline-flex items-center justify-center gap-2"
-            >
-              <span>Ver Servicios</span>
-              <ArrowRight size={18} />
-            </Link>
-            <Link
-              href="#contacto"
-              className="px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl border border-slate-700 bg-slate-800/40 hover:bg-slate-800 hover:border-slate-600 font-bold text-sm sm:text-base transition-all inline-flex items-center justify-center gap-2 backdrop-blur-sm"
-            >
-              Contactar
-            </Link>
-          </div>
-
-          {/* Stats */}
-          <div className="flex gap-6 sm:gap-10 mt-10 sm:mt-12 pt-8 sm:pt-10 border-t border-slate-800/80">
-            {[
-              { to: 50, suffix: "+", label: "Proyectos" },
-              { to: 100, suffix: "%", label: "Satisfacción" },
-              { to: 5, suffix: "★", label: "Calificación" },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <div className="text-xl sm:text-2xl font-bold text-slate-100 flex items-baseline">
-                  <CountUp
-                    from={0}
-                    to={stat.to}
-                    duration={1.5}
-                    className="count-up-text"
-                  />
-                  <span>{stat.suffix}</span>
-                </div>
-                <div className="text-xs sm:text-sm text-slate-500 mt-0.5">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
+        <div className="animate-aparecer mt-10 flex flex-col gap-3 [animation-delay:240ms] sm:flex-row">
+          <Link
+            href="/contacto"
+            className="inline-flex h-13 items-center justify-center gap-2.5 rounded-xl bg-primary px-6 font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+          >
+            Cotiza tu proyecto <ArrowRight size={18} aria-hidden="true" />
+          </Link>
+          <a
+            href={whatsappLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-13 items-center justify-center gap-2.5 rounded-xl border border-input px-6 font-medium transition-colors hover:bg-muted"
+          >
+            <MessageCircle size={18} aria-hidden="true" /> Escríbenos por WhatsApp
+          </a>
         </div>
 
-        {/* ── RIGHT VISUAL — hidden on mobile, visible on lg+ ──── */}
-        <div ref={rightRef} className="relative z-10 hidden lg:block">
-          {/* Outer glow */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-lima/15 rounded-3xl blur-3xl scale-90 opacity-60 pointer-events-none" />
-
-          {/* Card container */}
-          <div className="relative rounded-2xl bg-gradient-to-br from-primary/12 via-accent-blue to-lima/8 border border-slate-700/70 overflow-hidden p-6">
-            {/* Grid lines */}
-            <div
-              className="absolute inset-0 opacity-[0.07]"
-              style={{
-                backgroundImage:
-                  "repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(6,191,173,0.6) 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(6,191,173,0.6) 40px)",
-              }}
-            />
-            {/* Top glow stripe */}
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-
-            <div className="relative z-10 flex flex-col gap-3">
-              {/* Header label */}
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-bold tracking-widest uppercase text-primary/80">
-                  Servicios Disponibles
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                  <span className="text-xs text-slate-500">En línea</span>
-                </span>
-              </div>
-
-              {/* Service cards */}
-              {floatingCards.map((item) => (
-                <Link
-                  key={item.title}
-                  href={item.href}
-                  className="bg-slate-900/75 backdrop-blur-sm border border-slate-700/60 rounded-xl px-5 py-4 flex items-center gap-4 hover:border-primary/40 hover:bg-slate-900/90 hover:scale-[1.03] hover:-translate-y-1 hover:shadow-[0_4px_20px_rgba(6,191,173,0.15)] hover:z-20 transition-all duration-300 group cursor-pointer relative z-10"
+        {/* Ejemplo de producto: un catálogo digital */}
+        <div
+          role="img"
+          aria-label="Ejemplo de un catálogo digital con pedido por WhatsApp"
+          className="animate-aparecer mt-20 w-full max-w-[1080px] overflow-hidden rounded-2xl border border-border bg-card text-left shadow-[0_40px_120px_rgb(0_0_0/0.55),inset_0_1px_0_rgb(255_255_255/0.05)] [animation-delay:320ms]"
+        >
+          <div className="flex h-11 items-center gap-2 border-b border-border px-4">
+            <span className="h-2.5 w-2.5 rounded-full bg-secondary" />
+            <span className="h-2.5 w-2.5 rounded-full bg-secondary" />
+            <span className="h-2.5 w-2.5 rounded-full bg-secondary" />
+            <span className="ml-4 flex h-6 w-full max-w-sm items-center rounded-md bg-secondary px-3 font-mono text-xs text-subtle">
+              tunegocio.com/catalogo
+            </span>
+          </div>
+          <div className="flex flex-col sm:flex-row">
+            <div className="hidden w-56 shrink-0 flex-col gap-1 border-r border-border p-5 text-sm text-muted-foreground sm:flex">
+              <span className="mb-2 font-mono text-[11px] uppercase tracking-[0.08em] text-subtle">Categorías</span>
+              <span className="rounded-lg bg-secondary px-3 py-2.5 text-foreground">Todos los productos</span>
+              <span className="px-3 py-2.5">Novedades</span>
+              <span className="px-3 py-2.5">Más vendidos</span>
+              <span className="px-3 py-2.5">Ofertas</span>
+            </div>
+            <div className="grid flex-1 gap-4 p-5 sm:grid-cols-2 lg:grid-cols-3">
+              {productos.map((p, i) => (
+                <div
+                  key={p.nombre}
+                  className={`overflow-hidden rounded-xl border border-border ${i === 1 ? "hidden sm:block" : ""} ${i === 2 ? "hidden lg:block" : ""}`}
                 >
-                  <span className="text-2xl shrink-0" aria-hidden="true">
-                    {item.icon}
-                  </span>
-                  <div className="flex-1 min-w-0">
-                    <div className={`font-semibold text-sm ${item.color} group-hover:text-primary transition-colors`}>
-                      {item.title}
-                    </div>
-                    <div className="text-xs text-slate-500 truncate">
-                      {item.desc}
-                    </div>
+                  <div className={`h-32 bg-gradient-to-br ${p.tono}`} />
+                  <div className="p-4">
+                    <p className="text-sm font-medium">{p.nombre}</p>
+                    <p className="mt-1 text-sm text-subtle">{p.precio}</p>
+                    <p className="mt-3 flex h-9 items-center justify-center rounded-lg bg-brand-2/12 text-[13px] font-medium text-brand-2">
+                      Pedir por WhatsApp
+                    </p>
                   </div>
-                  <ArrowRight
-                    size={14}
-                    className="shrink-0 text-slate-700 group-hover:text-primary transition-colors"
-                  />
-                </Link>
+                </div>
               ))}
-
-              {/* Bottom indicator */}
-              <div className="mt-2 flex items-center gap-2 pt-3 border-t border-slate-800">
-                <span className="flex h-2 w-2 rounded-full bg-primary animate-pulse" />
-                <span className="text-xs text-slate-500">
-                  Disponible para nuevos proyectos
-                </span>
-              </div>
             </div>
           </div>
         </div>
 
-        {/* ── MOBILE SERVICES GRID (visible only on sm/md) ── */}
-        <div className="lg:hidden w-full">
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            {floatingCards.map((item) => (
-              <Link
-                key={item.title}
-                href={item.href}
-                className="bg-slate-900/60 border border-slate-700/60 rounded-xl px-4 py-3.5 flex flex-col items-center gap-2 text-center hover:border-primary/40 active:scale-95 transition-all duration-200"
-              >
-                <span className="text-2xl" aria-hidden="true">{item.icon}</span>
-                <span className={`font-semibold text-xs ${item.color}`}>{item.title}</span>
-              </Link>
-            ))}
-          </div>
+        <div className="mt-16 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 font-mono text-[13px] text-subtle">
+          <span>Construido con</span>
+          {tecnologias.map((t) => (
+            <span key={t} className="text-muted-foreground">
+              {t}
+            </span>
+          ))}
         </div>
       </div>
     </section>

@@ -45,8 +45,7 @@ El proyecto se sustenta en un stack robusto para asegurar accesibilidad, escalab
 - **Zod & @hookform/resolvers** - Definición de esquemas de validación de datos seguros.
 
 ### 📧 Correos & Notificaciones
-- **Resend** - API principal para correos transaccionales ultrarrápidos.
-- **Nodemailer** - Soporte estándar y fallback para envío de correos.
+- **Nodemailer / Gmail SMTP** - Servicio para envío de correos transaccionales y notificaciones de contacto.
 
 ---
 
@@ -86,7 +85,7 @@ cauralis/
 ├── lib/                        # 🧠 NÚCLEO DE LÓGICA Y SERVICIOS
 │   ├── auth/                   # Utilidades de tokens JWT y encriptación
 │   ├── data/                   # JSON y Datos Estáticos del portafolio/servicios
-│   ├── email/                  # Clientes de envío de correos (Resend config)
+│   ├── email/                  # Clientes de envío de correos (Gmail SMTP config)
 │   └── supabase/               # Instancias de conexión con la BD
 │
 ├── hooks/                      # 🪝 Custom Hooks genéricos de React
@@ -117,10 +116,11 @@ SUPABASE_SERVICE_ROLE_KEY="tu_clave_de_servicio_privada"
 
 
 # ---------------------------------------------
-# CORREOS ELECTRÓNICOS (Resend)
+# CORREOS ELECTRÓNICOS (Gmail SMTP)
 # ---------------------------------------------
-# API Key generada en el dashboard de Resend
-RESEND_API_KEY="re_tu_api_key_secreta"
+# Usuario de Gmail y contraseña de aplicación generada en la cuenta de Google
+GMAIL_USER="tu_correo@gmail.com"
+GMAIL_APP_PASSWORD="tu_contrasena_de_aplicacion"
 
 
 # ---------------------------------------------

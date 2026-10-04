@@ -168,7 +168,7 @@ export async function POST(req: Request) {
               <!-- CTA WhatsApp -->
               <div style="text-align:center;margin-bottom:24px;">
                 <p style="color:#94a3b8;font-size:13px;margin:0 0 12px;">¿Necesitas una respuesta más rápida?</p>
-                <a href="https://wa.me/593990099265?text=Hola%20Cauralis%2C%20acabo%20de%20enviar%20un%20formulario%20y%20quisiera%20más%20información" 
+                <a href="https://wa.me/593959784469?text=Hola%20Cauralis%2C%20acabo%20de%20enviar%20un%20formulario%20y%20quisiera%20más%20información" 
                    style="display:inline-block;background:#25D366;color:#ffffff;font-size:14px;font-weight:700;padding:12px 28px;border-radius:10px;text-decoration:none;">
                   💬 Escríbenos por WhatsApp
                 </a>
