@@ -16,10 +16,31 @@ const navLinks = [
 export default function Header() {
   const [abierto, setAbierto] = useState(false);
   const [conScroll, setConScroll] = useState(false);
+  const [oculto, setOculto] = useState(false);
 
+  // Se esconde al bajar y reaparece en cuanto el usuario sube.
   useEffect(() => {
-    const onScroll = () => setConScroll(window.scrollY > 8);
-    onScroll();
+    let ultimoY = window.scrollY;
+    let pendiente = false;
+
+    const revisar = () => {
+      pendiente = false;
+      const y = window.scrollY;
+      const delta = y - ultimoY;
+      setConScroll(y > 8);
+      if (y < 80) setOculto(false);
+      else if (delta > 6) setOculto(true);
+      else if (delta < -6) setOculto(false);
+      // Solo actualizamos la referencia con movimientos claros, para ignorar temblores del trackpad.
+      if (Math.abs(delta) > 6 || y < 80) ultimoY = y;
+    };
+    const onScroll = () => {
+      if (pendiente) return;
+      pendiente = true;
+      requestAnimationFrame(revisar);
+    };
+
+    requestAnimationFrame(revisar);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -32,7 +53,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
+      onFocus={() => setOculto(false)}
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-[translate,background-color,border-color] duration-300 ease-out ${
+        oculto && !abierto ? "-translate-y-full" : "translate-y-0"
+      } ${
         conScroll || abierto
           ? "border-border bg-background/85 backdrop-blur-xl"
           : "border-transparent bg-transparent"
