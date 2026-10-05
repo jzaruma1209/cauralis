@@ -106,7 +106,7 @@ export default function Chatbots() {
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(closest-side,rgb(61_212_122/0.12),transparent)]"
           />
           {/* Celular con WhatsApp animado: los mensajes aparecen uno por uno y termina en una venta */}
-          <ChatAnimado className="relative aspect-[9/16] h-auto w-full [mask-image:radial-gradient(ellipse_75%_70%_at_50%_50%,black_70%,transparent)]" />
+          <ChatAnimado className="relative aspect-[941/1672] h-auto w-full" />
         </div>
       </div>
 

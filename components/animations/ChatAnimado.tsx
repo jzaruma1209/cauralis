@@ -5,23 +5,25 @@ import { useEffect, useRef } from "react";
 /*
  * Celular con WhatsApp animado (origen: animaciones/cauralis-whatsapp-animado.html).
  * Dos imágenes (chat vacío y chat lleno): cada mensaje aparece recortando su zona de la imagen llena.
- * Ciclo de 16 s. Se pausa cuando no está en pantalla y respeta "reducir movimiento".
+ * Fondo transparente fuera del teléfono. Ciclo de 12,4 s. Se pausa fuera de pantalla y respeta "reducir movimiento".
  */
 const VACIO = "/animaciones/chat/vacio.webp";
 const LLENO = "/animaciones/chat/lleno.webp";
-const DURACION = 16000;
+const DURACION = 12400;
+const MOSTRAR_COMPLETO = 8800; // aparece la imagen final con la venta cerrada
+const DESVANECER = 11600; // empieza a desvanecerse para reiniciar
 const ANCHO_ORIGEN = 941;
 const ALTO_ORIGEN = 1672;
 
 // [x, y, ancho, alto, radio, inicio en ms] de cada globo dentro de la imagen original
 const GLOBOS = [
-  [319, 402, 436, 114, 22, 1500],
-  [197, 523, 413, 145, 22, 3300],
-  [424, 675, 332, 108, 22, 5300],
-  [198, 787, 421, 205, 22, 7000],
-  [452, 1001, 304, 98, 22, 9200],
-  [198, 1097, 428, 117, 22, 10800],
-  [460, 1212, 408, 184, 38, 12100],
+  [319, 402, 436, 114, 22, 900],
+  [197, 523, 413, 145, 22, 2200],
+  [424, 675, 332, 108, 22, 3600],
+  [198, 787, 421, 205, 22, 4800],
+  [452, 1001, 304, 98, 22, 6400],
+  [198, 1097, 428, 117, 22, 7500],
+  [460, 1212, 408, 184, 38, 8400],
 ] as const;
 
 const suave = (x: number) => {
@@ -44,23 +46,28 @@ export default function ChatAnimado({ className }: { className?: string }) {
 
     const dibujar = (ms: number) => {
       const t = ms % DURACION;
-      const desvanecer = 1 - suave((t - 14700) / 650);
+      const desvanecer = 1 - suave((t - DESVANECER) / 650);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // el fondo queda transparente
       ctx.setTransform(canvas.width / ANCHO_ORIGEN, 0, 0, canvas.height / ALTO_ORIGEN, 0, 0);
+      ctx.imageSmoothingQuality = "high";
       ctx.globalAlpha = 1;
       ctx.drawImage(vacio, 0, 0, ANCHO_ORIGEN, ALTO_ORIGEN);
-      for (const [x, y, w, h, , inicio] of GLOBOS) {
-        const alfa = suave((t - inicio) / 240) * desvanecer;
+      for (const [x, y, w, h, r, inicio] of GLOBOS) {
+        const alfa = suave((t - inicio) / 220) * desvanecer;
         if (alfa <= 0) continue;
         ctx.save();
         ctx.globalAlpha = alfa;
         ctx.beginPath();
-        ctx.rect(x, y, w, h);
+        // Recorte con la forma redondeada del globo (sin rectángulo alrededor)
+        if (ctx.roundRect) ctx.roundRect(x, y, w, h, r);
+        else ctx.rect(x, y, w, h);
         ctx.clip();
         ctx.drawImage(lleno, 0, 0, ANCHO_ORIGEN, ALTO_ORIGEN);
         ctx.restore();
       }
-      if (t >= 12500) {
-        ctx.globalAlpha = suave((t - 12500) / 220) * desvanecer;
+      if (t >= MOSTRAR_COMPLETO) {
+        ctx.globalAlpha = suave((t - MOSTRAR_COMPLETO) / 220) * desvanecer;
         ctx.drawImage(lleno, 0, 0, ANCHO_ORIGEN, ALTO_ORIGEN);
         ctx.globalAlpha = 1;
       }
@@ -92,7 +99,7 @@ export default function ChatAnimado({ className }: { className?: string }) {
       .then(() => {
         if (cancelado) return;
         if (reducido) {
-          dibujar(13000); // conversación completa, sin movimiento
+          dibujar(MOSTRAR_COMPLETO + 1000); // conversación completa, sin movimiento
           return;
         }
         dibujar(0);
@@ -110,8 +117,8 @@ export default function ChatAnimado({ className }: { className?: string }) {
   return (
     <canvas
       ref={canvasRef}
-      width={1080}
-      height={1920}
+      width={ANCHO_ORIGEN}
+      height={ALTO_ORIGEN}
       role="img"
       aria-label="Demostración de Cauralis: una conversación de WhatsApp a las 23:47 donde el chatbot responde, envía el enlace de pago y confirma una venta de 49 dólares."
       className={className}
