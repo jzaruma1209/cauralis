@@ -1,14 +1,5 @@
 // Textos de la sección "Chatbots 24/7". Revisa que cada afirmación coincida con lo que ofreces.
 
-export const conversacion = [
-  { de: "cliente", texto: "Hola, ¿tienen zapatillas en talla 40?", hora: "23:47" },
-  { de: "bot", texto: "¡Hola! Sí, en negro y en blanco, a $49. ¿Cuál prefieres?", hora: "23:47 · respuesta automática" },
-  { de: "cliente", texto: "Negro. ¿Envían a Quito?", hora: "23:48" },
-  { de: "bot", texto: "Sí, a todo el país. Completa tu pedido aquí:", enlace: "tunegocio.com/pedido", hora: "23:48" },
-  { de: "cliente", texto: "Listo, ya pagué", hora: "23:51" },
-  { de: "bot", texto: "¡Gracias! Tu pedido #1024 está confirmado.", hora: "23:51" },
-] as const;
-
 export const sinChatbot = [
   "Mensajes que esperan horas, o hasta el día siguiente, por una respuesta.",
   "Clientes que se cansan de esperar y le compran a la competencia.",

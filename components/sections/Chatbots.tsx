@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import {
   ArrowRight,
   BrainCircuit,
@@ -11,9 +10,10 @@ import {
   Workflow,
   X,
 } from "lucide-react";
-import { comoFunciona, conChatbot, conversacion, diferenciales, sinChatbot } from "@/lib/data/chatbot";
+import { comoFunciona, conChatbot, diferenciales, sinChatbot } from "@/lib/data/chatbot";
 import { whatsappBotLink, whatsappLink } from "@/lib/site";
 import PromoChatbot from "@/components/sections/PromoChatbot";
+import ChatAnimado from "@/components/animations/ChatAnimado";
 
 const iconos = {
   canales: MessagesSquare,
@@ -46,78 +46,6 @@ const canales = [
   { nombre: "Instagram", icono: <IconoInstagram className="h-[17px] w-[17px] text-[#f0588d]" /> },
   { nombre: "Messenger", icono: <IconoMessenger className="h-[17px] w-[17px] text-[#3fa2ff]" /> },
 ];
-
-/* Celular con una conversación de ejemplo, a medianoche */
-function CelularChat() {
-  return (
-    <div
-      role="img"
-      aria-label="Ejemplo: un cliente compra unas zapatillas por WhatsApp a las 23:51 y el chatbot cierra la venta"
-      className="relative mx-auto h-[590px] w-full max-w-[460px] sm:h-[690px]"
-    >
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(closest-side,rgb(61_212_122/0.14),transparent)]"
-        aria-hidden="true"
-      />
-
-      <div className="absolute left-1/2 top-0 h-[630px] w-[300px] origin-top -translate-x-1/2 scale-[0.84] rounded-[44px] sm:scale-100 border border-white/10 bg-[#141a22] p-3 shadow-[0_40px_100px_rgb(0_0_0/0.6)]">
-        <div className="flex h-full flex-col overflow-hidden rounded-[34px] bg-[#0b1015]">
-          {/* Cabecera del chat */}
-          <div className="flex items-center gap-3 border-b border-white/[0.06] bg-[#11171e] px-4 pb-3 pt-5">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-secondary">
-              <Image src="/logo-mark-64.png" alt="Cauralis" width={22} height={22} unoptimized className="h-[22px] w-[22px]" />
-            </span>
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-[14px] font-semibold">Tu negocio</p>
-              <p className="flex items-center gap-1.5 text-[11px] text-brand-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-brand-2" /> Asistente en línea 24/7
-              </p>
-            </div>
-          </div>
-
-          {/* Mensajes */}
-          <div className="flex flex-1 flex-col justify-end gap-2 overflow-hidden px-3 py-3 text-[12.5px] leading-snug">
-            {conversacion.map((m, i) => (
-              <div
-                key={i}
-                className={`max-w-[82%] rounded-2xl px-3 py-2 ${
-                  m.de === "cliente"
-                    ? "self-end rounded-br-md bg-[#144d38] text-[#e6fbef]"
-                    : "self-start rounded-bl-md bg-secondary text-foreground"
-                }`}
-              >
-                {m.texto}
-                {"enlace" in m && (
-                  <span className="mt-1.5 block rounded-lg bg-white/[0.06] px-2 py-1.5 font-mono text-[11px] text-brand">
-                    {m.enlace}
-                  </span>
-                )}
-                <span className="mt-1 block text-right text-[10px] opacity-60">{m.hora}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Caja de texto */}
-          <div className="flex items-center gap-2 border-t border-white/[0.06] px-3 py-3">
-            <span className="flex h-9 flex-1 items-center rounded-full bg-white/[0.06] px-3.5 text-[12px] text-subtle">Escribe un mensaje</span>
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-2 text-background">
-              <ArrowRight size={16} />
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Venta cerrada */}
-      <div className="absolute bottom-0 right-0 w-[196px] rounded-2xl border border-border bg-card p-3.5 shadow sm:w-[218px] sm:p-4-[0_20px_50px_rgb(0_0_0/0.5)]">
-        <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.06em] text-brand-2">
-          <CheckCircle2 size={15} /> Venta cerrada
-        </p>
-        <p className="mt-2 font-semibold">Pedido #1024 · $49</p>
-        <p className="mt-0.5 text-[13px] text-muted-foreground">23:51 · mientras dormías</p>
-      </div>
-    </div>
-  );
-}
 
 export default function Chatbots() {
   return (
@@ -172,7 +100,14 @@ export default function Chatbots() {
           </p>
         </div>
 
-        <CelularChat />
+        <div className="relative mx-auto w-full max-w-[400px]">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(closest-side,rgb(61_212_122/0.12),transparent)]"
+          />
+          {/* Celular con WhatsApp animado: los mensajes aparecen uno por uno y termina en una venta */}
+          <ChatAnimado className="relative aspect-[9/16] h-auto w-full [mask-image:radial-gradient(ellipse_75%_70%_at_50%_50%,black_70%,transparent)]" />
+        </div>
       </div>
 
       {/* Por qué tener un chatbot: con vs sin */}
