@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "cauralis",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "C:/Users/jzaru/OneDrive/Desktop/paul/cauralis/sitio web cauralis.com/cauralis web/cauralis/node_modules/next/dist/bin/next",
+        "dev",
+        "C:/Users/jzaru/OneDrive/Desktop/paul/cauralis/sitio web cauralis.com/cauralis web/cauralis",
+        "-p",
+        "3005"
+      ],
+      "port": 3005
+    }
+  ]
+}

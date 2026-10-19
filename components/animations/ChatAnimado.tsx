@@ -5,25 +5,25 @@ import { useEffect, useRef } from "react";
 /*
  * Celular con WhatsApp animado (origen: animaciones/cauralis-whatsapp-animado.html).
  * Dos imágenes (chat vacío y chat lleno): cada mensaje aparece recortando su zona de la imagen llena.
- * Fondo transparente fuera del teléfono. Ciclo de 12,4 s. Se pausa fuera de pantalla y respeta "reducir movimiento".
+ * Fondo transparente fuera del teléfono. Ciclo de 9,1 s. Se pausa fuera de pantalla y respeta "reducir movimiento".
  */
 const VACIO = "/animaciones/chat/vacio.webp";
 const LLENO = "/animaciones/chat/lleno.webp";
-const DURACION = 12400;
-const MOSTRAR_COMPLETO = 8800; // aparece la imagen final con la venta cerrada
-const DESVANECER = 11600; // empieza a desvanecerse para reiniciar
+const DURACION = 9090;
+const MOSTRAR_COMPLETO = 5910; // aparece la imagen final con la venta cerrada
+const DESVANECER = 8450; // empieza a desvanecerse para reiniciar
 const ANCHO_ORIGEN = 941;
 const ALTO_ORIGEN = 1672;
 
 // [x, y, ancho, alto, radio, inicio en ms] de cada globo dentro de la imagen original
 const GLOBOS = [
-  [319, 402, 436, 114, 22, 900],
-  [197, 523, 413, 145, 22, 2200],
-  [424, 675, 332, 108, 22, 3600],
-  [198, 787, 421, 205, 22, 4800],
-  [452, 1001, 304, 98, 22, 6400],
-  [198, 1097, 428, 117, 22, 7500],
-  [460, 1212, 408, 184, 38, 8400],
+  [319, 402, 436, 114, 22, 550],
+  [197, 523, 413, 145, 22, 1410],
+  [424, 675, 332, 108, 22, 2360],
+  [198, 787, 421, 205, 22, 3180],
+  [452, 1001, 304, 98, 22, 4270],
+  [198, 1097, 428, 117, 22, 5050],
+  [460, 1212, 408, 184, 38, 5640],
 ] as const;
 
 const suave = (x: number) => {
@@ -46,7 +46,7 @@ export default function ChatAnimado({ className }: { className?: string }) {
 
     const dibujar = (ms: number) => {
       const t = ms % DURACION;
-      const desvanecer = 1 - suave((t - DESVANECER) / 650);
+      const desvanecer = 1 - suave((t - DESVANECER) / 590);
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, canvas.width, canvas.height); // el fondo queda transparente
       ctx.setTransform(canvas.width / ANCHO_ORIGEN, 0, 0, canvas.height / ALTO_ORIGEN, 0, 0);
@@ -54,7 +54,7 @@ export default function ChatAnimado({ className }: { className?: string }) {
       ctx.globalAlpha = 1;
       ctx.drawImage(vacio, 0, 0, ANCHO_ORIGEN, ALTO_ORIGEN);
       for (const [x, y, w, h, r, inicio] of GLOBOS) {
-        const alfa = suave((t - inicio) / 220) * desvanecer;
+        const alfa = suave((t - inicio) / 200) * desvanecer;
         if (alfa <= 0) continue;
         ctx.save();
         ctx.globalAlpha = alfa;
@@ -67,7 +67,7 @@ export default function ChatAnimado({ className }: { className?: string }) {
         ctx.restore();
       }
       if (t >= MOSTRAR_COMPLETO) {
-        ctx.globalAlpha = suave((t - MOSTRAR_COMPLETO) / 220) * desvanecer;
+        ctx.globalAlpha = suave((t - MOSTRAR_COMPLETO) / 200) * desvanecer;
         ctx.drawImage(lleno, 0, 0, ANCHO_ORIGEN, ALTO_ORIGEN);
         ctx.globalAlpha = 1;
       }
