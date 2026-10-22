@@ -257,3 +257,24 @@
     }
   }
 }
+
+/* Esqueleto de carga: una franja de luz recorre la pieza (solo transform, barato para la GPU) */
+@keyframes brillo {
+  from { transform: translateX(-100%); }
+  60%, to { transform: translateX(100%); }
+}
+@utility esqueleto {
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.09), transparent);
+    animation: brillo 2.2s ease-in-out infinite;
+    animation-delay: var(--d, 0s);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &::after { animation: none; }
+  }
+}

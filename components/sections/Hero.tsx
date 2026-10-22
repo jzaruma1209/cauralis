@@ -8,7 +8,7 @@ import CatalogoAnimado from "@/components/animations/CatalogoAnimado";
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden pt-28 sm:pt-44">
+    <section className="relative overflow-hidden pt-24 sm:pt-[clamp(6.5rem,15svh,9rem)]">
       <div
         className="pointer-events-none absolute left-1/2 top-[-260px] h-[560px] w-[960px] max-w-[160vw] -translate-x-1/2 bg-[radial-gradient(closest-side,rgb(34_195_230/0.16),rgb(61_212_122/0.06)_60%,transparent)]"
         aria-hidden="true"

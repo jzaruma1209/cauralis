@@ -36,12 +36,13 @@ export default function Servicios() {
             </p>
           </div>
           <div className="hidden flex-col gap-2.5 rounded-xl border border-border bg-background p-5 sm:flex" aria-hidden="true">
-            <div className="h-2.5 w-2/5 rounded bg-secondary" />
-            <div className="h-5 w-[85%] rounded-md bg-muted-foreground/20" />
-            <div className="h-5 w-3/5 rounded-md bg-muted-foreground/20" />
-            <div className="mt-1.5 h-2.5 w-3/4 rounded bg-secondary" />
+            {/* Esqueleto de carga: una franja de luz recorre cada pieza en cascada */}
+            <div className="esqueleto h-2.5 w-2/5 rounded bg-secondary" />
+            <div className="esqueleto h-5 w-[85%] rounded-md bg-muted-foreground/20" style={{ "--d": "0.15s" } as React.CSSProperties} />
+            <div className="esqueleto h-5 w-3/5 rounded-md bg-muted-foreground/20" style={{ "--d": "0.3s" } as React.CSSProperties} />
+            <div className="esqueleto mt-1.5 h-2.5 w-3/4 rounded bg-secondary" style={{ "--d": "0.45s" } as React.CSSProperties} />
             <div className="mt-2.5 flex gap-2">
-              <div className="h-8 w-28 rounded-lg bg-primary" />
+              <div className="esqueleto h-8 w-28 rounded-lg bg-primary" style={{ "--d": "0.6s" } as React.CSSProperties} />
               <div className="h-8 w-24 rounded-lg border border-input" />
             </div>
           </div>

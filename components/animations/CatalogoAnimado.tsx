@@ -9,8 +9,8 @@ import { Aparecer, EASE } from "@/components/animations/Entrada";
 
 /*
  * Catálogo de ejemplo del Hero con un recorrido en bucle: un cursor elige "Más vendidos", pulsa
- * "Pedir por WhatsApp" en el primer producto y llega el aviso de pedido nuevo. Se pausa fuera de
- * pantalla y, con "reducir movimiento", queda quieto en su estado inicial. Se anima dentro de
+ * "Pedir por WhatsApp" en el primer producto y llega el aviso de pedido nuevo. Arranca al cargar la
+ * página, se pausa fuera de pantalla una vez visto y, con "reducir movimiento", queda quieto en su estado inicial. Se anima dentro de
  * <Coreografia> (comparte su LazyMotion).
  */
 const PRODUCTOS = [
@@ -52,9 +52,12 @@ export default function CatalogoAnimado() {
   const [estado, setEstado] = useState<Estado>({ paso: REPOSO, ciclo: 0, x: 0, y: 0, menu: false });
   const { paso, ciclo, x, y, menu } = estado;
 
+  // Corre desde que carga la página (así ya va en marcha cuando llegas a verlo) y solo se pausa
+  // fuera de pantalla después de haberse visto una vez, para ahorrar recursos.
   const enVista = useInView(ventanaRef, { amount: 0.4 });
+  const vistoAntes = useInView(ventanaRef, { amount: 0.4, once: true });
   const reducido = useReducedMotion();
-  const activo = enVista && !reducido;
+  const activo = !reducido && (enVista || !vistoAntes);
 
   useEffect(() => {
     if (!activo) return;
@@ -104,7 +107,6 @@ export default function CatalogoAnimado() {
             key={i}
             aria-hidden="true"
             className="h-2.5 w-2.5 rounded-full bg-subtle"
-            initial={false}
             animate={activo ? { y: [0, -4, 0], opacity: [0.3, 1, 0.3] } : { y: 0, opacity: 0.3 }}
             transition={activo ? { duration: 1.2, ease: "easeInOut", repeat: Infinity, delay: i * 0.18 } : { duration: 0.3 }}
           />
