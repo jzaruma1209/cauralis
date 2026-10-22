@@ -98,11 +98,27 @@ export default function CatalogoAnimado() {
       className="relative w-full overflow-hidden rounded-2xl border border-border bg-card text-left shadow-[0_40px_120px_rgb(0_0_0/0.55),inset_0_1px_0_rgb(255_255_255/0.05)]"
     >
       <div className="flex h-9 items-center gap-1.5 border-b border-border px-3 sm:h-11 sm:gap-2 sm:px-4">
-        <span className="h-2.5 w-2.5 rounded-full bg-secondary" />
-        <span className="h-2.5 w-2.5 rounded-full bg-secondary" />
-        <span className="h-2.5 w-2.5 rounded-full bg-secondary" />
+        {/* Tres puntos que flotan en onda, como un indicador de carga */}
+        {[0, 1, 2].map((i) => (
+          <m.span
+            key={i}
+            aria-hidden="true"
+            className="h-2.5 w-2.5 rounded-full bg-subtle"
+            initial={false}
+            animate={activo ? { y: [0, -4, 0], opacity: [0.3, 1, 0.3] } : { y: 0, opacity: 0.3 }}
+            transition={activo ? { duration: 1.2, ease: "easeInOut", repeat: Infinity, delay: i * 0.18 } : { duration: 0.3 }}
+          />
+        ))}
         <span className="ml-2 flex h-5 w-full max-w-sm items-center rounded-md bg-secondary px-2.5 font-mono text-[11px] text-subtle sm:ml-4 sm:h-6 sm:px-3 sm:text-xs">
           tunegocio.com/catalogo
+        </span>
+        {/* Insignia del negocio atendido por Cauralis, en la esquina de la barra */}
+        <span className="ml-auto flex shrink-0 items-center gap-1.5 pl-2 sm:gap-2 sm:pl-4" aria-hidden="true">
+          <Image src="/logo-mark-64.png" alt="" width={64} height={64} className="h-5 w-5 object-contain sm:h-6 sm:w-6" />
+          <span className="hidden text-[13px] font-semibold sm:inline">Cauralis</span>
+          <span className="rounded-md bg-brand-2/20 px-1.5 py-0.5 font-mono text-[10px] font-medium leading-none text-brand-2 sm:text-[11px]">
+            24/7
+          </span>
         </span>
       </div>
       <div className="flex flex-col sm:flex-row">
