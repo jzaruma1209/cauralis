@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useSyncExternalStore } from "react";
-import { MessageCircle, Timer } from "lucide-react";
+import { Timer } from "lucide-react";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import { promoChatbot } from "@/lib/data/chatbot";
 import { whatsappLink } from "@/lib/site";
 
@@ -142,7 +143,7 @@ export default function PromoChatbot() {
                 rel="noopener noreferrer"
                 className="mt-3 inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-[#25d366] px-4 text-sm font-semibold sm:mt-5 sm:h-13 sm:gap-2.5 sm:px-6 sm:text-base text-[#06281a] shadow-[0_10px_30px_rgb(37_211_102/0.3)] transition-transform hover:scale-[1.03]"
               >
-                <MessageCircle size={19} aria-hidden="true" /> Reclamar en WhatsApp
+                <WhatsAppIcon size={19} className="text-white" /> Reclamar en WhatsApp
               </a>
             </>
           )}

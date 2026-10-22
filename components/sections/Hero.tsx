@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import { whatsappLink } from "@/lib/site";
 import { tecnologias } from "@/lib/data/contenido";
 import { Aparecer, Coreografia, TituloPorLineas } from "@/components/animations/Entrada";
@@ -58,7 +59,7 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 className="inline-flex h-13 items-center justify-center gap-2.5 rounded-xl border border-input px-6 font-medium transition-colors hover:bg-muted"
               >
-                <MessageCircle size={18} aria-hidden="true" /> Escríbenos por WhatsApp
+                <WhatsAppIcon size={18} /> Escríbenos por WhatsApp
               </a>
             </Aparecer>
           </div>

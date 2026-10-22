@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import { whatsappLink } from "@/lib/site";
 
 export default function ContactoCTA() {
@@ -33,7 +34,7 @@ export default function ContactoCTA() {
             rel="noopener noreferrer"
             className="inline-flex h-13 items-center justify-center gap-2 whitespace-nowrap rounded-xl border border-input px-6 font-medium transition-colors hover:bg-muted"
           >
-            <MessageCircle size={18} aria-hidden="true" /> WhatsApp
+            <WhatsAppIcon size={18} /> WhatsApp
           </a>
         </div>
       </div>

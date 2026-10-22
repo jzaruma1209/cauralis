@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Check, MessageCircle } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check } from "lucide-react";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import { DemoCard, PreviewModal, type DemoItem } from "@/components/sections/DemoMarketplace";
 import IconoServicio from "@/components/servicios/IconoServicio";
 import type { Servicio } from "@/lib/data/servicios";
@@ -112,7 +113,7 @@ export default function ServicioDetalle({ servicio }: { servicio: Servicio }) {
               rel="noopener noreferrer"
               className="inline-flex h-12 items-center justify-center gap-2 rounded-[var(--radio-boton,0.75rem)] border border-border px-6 font-medium transition-colors hover:bg-muted"
             >
-              <MessageCircle size={18} aria-hidden="true" /> WhatsApp
+              <WhatsAppIcon size={18} /> WhatsApp
             </a>
           </div>
         </section>

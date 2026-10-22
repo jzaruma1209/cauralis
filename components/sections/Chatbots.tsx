@@ -5,11 +5,11 @@ import {
   Check,
   CheckCircle2,
   Database,
-  MessageCircle,
   MessagesSquare,
   Workflow,
   X,
 } from "lucide-react";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import { comoFunciona, conChatbot, diferenciales, sinChatbot } from "@/lib/data/chatbot";
 import { whatsappBotLink, whatsappLink } from "@/lib/site";
 import PromoChatbot from "@/components/sections/PromoChatbot";
@@ -42,7 +42,7 @@ function IconoMessenger({ className }: { className?: string }) {
 }
 
 const canales = [
-  { nombre: "WhatsApp", icono: <MessageCircle size={17} aria-hidden="true" className="text-[#25d366]" /> },
+  { nombre: "WhatsApp", icono: <WhatsAppIcon size={17} /> },
   { nombre: "Instagram", icono: <IconoInstagram className="h-[17px] w-[17px] text-[#f0588d]" /> },
   { nombre: "Messenger", icono: <IconoMessenger className="h-[17px] w-[17px] text-[#3fa2ff]" /> },
 ];
@@ -89,7 +89,7 @@ export default function Chatbots() {
               rel="noopener noreferrer"
               className="inline-flex h-13 items-center justify-center gap-2.5 whitespace-nowrap rounded-xl border border-input px-6 font-medium transition-colors hover:bg-muted"
             >
-              <MessageCircle size={18} className="text-[#25d366]" aria-hidden="true" /> Pruébalo en WhatsApp
+              <WhatsAppIcon size={18} /> Pruébalo en WhatsApp
             </a>
           </div>
           <p className="mt-4 text-sm text-subtle">

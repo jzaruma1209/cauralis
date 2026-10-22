@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
 import { ArrowUp, MessageCircle, X } from "lucide-react";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import { whatsappBotLink, whatsappLink } from "@/lib/site";
 
 type Mensaje =
@@ -145,15 +146,15 @@ export default function ChatWidget() {
                       rel="noopener noreferrer"
                       className="inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-[#25d366] px-3 text-[13px] font-semibold text-[#06281a]"
                     >
-                      <MessageCircle size={16} aria-hidden="true" /> Asistente 24/7 en WhatsApp
+                      <WhatsAppIcon size={16} className="text-white" /> Asistente 24/7 en WhatsApp
                     </a>
                     <a
                       href={whatsappLink()}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex h-10 items-center justify-center rounded-xl border border-input px-3 text-[13px] font-medium transition-colors hover:bg-muted"
+                      className="inline-flex h-10 items-center justify-center gap-2 rounded-xl border border-input px-3 text-[13px] font-medium transition-colors hover:bg-muted"
                     >
-                      Hablar con un asesor
+                      <WhatsAppIcon size={16} /> Hablar con un asesor
                     </a>
                   </div>
                 )}

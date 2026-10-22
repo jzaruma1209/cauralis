@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Bot, Mail, MessageCircle } from "lucide-react";
+import { Mail } from "lucide-react";
 import ContactForm from "@/components/forms/ContactForm";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import { site, whatsappBotLink, whatsappLink } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -14,14 +15,14 @@ const canales = [
     titulo: "Hablar con un asesor",
     detalle: `WhatsApp ${site.whatsappAsesorVisible}`,
     href: whatsappLink(),
-    icono: MessageCircle,
+    icono: WhatsAppIcon,
     externo: true,
   },
   {
     titulo: "Asistente virtual 24/7",
     detalle: `WhatsApp ${site.whatsappBotVisible}`,
     href: whatsappBotLink(),
-    icono: Bot,
+    icono: WhatsAppIcon,
     externo: true,
   },
   {
