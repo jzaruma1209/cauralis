@@ -1,24 +1,27 @@
 # Estado actual
 
-_Última actualización: 2026-10-19 · por: agente (inicialización de la memoria)_
+_Última actualización: 2026-10-21 · por: Codex_
 
 ## Tarea activa
-- Ninguna. La memoria se acaba de inicializar.
-- Rama: main · Estado Git: sin commit (cambios pendientes, ver abajo)
+- Publicar el icono oficial de WhatsApp en la burbuja flotante del chat.
+- Rama: `main` · Estado Git: commits `d79ea60` y `52c0815` con push a `origin/main`.
 
 ## Avance comprobado
-- Memoria inicializada en `docs/memoria/` con los punteros `AGENTS.md` y `CLAUDE.md` (sin commit).
-- Skill `memoria-de-proyecto` copiada a `.claude/skills/` (sin commit).
+- El resto de los iconos de WhatsApp se publicó en `8393aab` y está visible en `cauralis.com`.
+- La burbuja flotante usa el icono blanco de WhatsApp sobre verde en `components/chat/ChatWidget.tsx` (`d79ea60`).
+- Se hizo un commit vacío (`52c0815`) para reintentar el disparador de despliegue.
 
 ## Validación
-- `verificar-memoria.mjs` → no ejecutado en esta sesión (Node.js no comprobado).
+- `npm run lint`: 0 errores, 3 advertencias preexistentes en `DashboardClient.tsx`.
+- `npm run build`: correcto.
+- Producción todavía muestra la burbuja anterior; el último despliegue registrado por Vercel corresponde a `8393aab`.
 
 ## Bloqueos
-- Ninguno.
+- Vercel no ha iniciado un despliegue para `d79ea60` ni para `52c0815` tras los respectivos pushes.
+- La conexión de Vercel no está disponible para este agente. Se sugirió conectarla para diagnosticar o desplegar.
 
 ## Próxima acción
-Decidir con el usuario qué hacer con los cambios sin commit: `components/animations/ChatAnimado.tsx` (modificado) y las carpetas sin versionar `animaciones/`, `public/img/`, `.claude/`, además de `docs/memoria/`, `AGENTS.md` y `CLAUDE.md`.
+Cuando haya acceso a Vercel, revisar la integración con GitHub y desplegar `origin/main` (`52c0815`). Confirmar en `https://www.cauralis.com/` que la burbuja flotante contiene un SVG con `viewBox="0 0 720 720"`.
 
 ## Contexto que no está en el código
-- `.claude/` contiene la skill y `launch.json`; decidir si se versiona o queda local.
-- Zona horaria, modo Git y uso de sesiones están marcados como «por confirmar» en sus archivos.
+- `TAREAS.md` aún describe cambios sin commit de 2026-10-19, aunque el árbol Git estaba limpio antes de este trabajo; revisar esa tarea por separado.
