@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowUp, MessageCircle, X } from "lucide-react";
+import { ArrowUp, X } from "lucide-react";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import { whatsappBotLink, whatsappLink } from "@/lib/site";
 
@@ -230,13 +230,12 @@ export default function ChatWidget() {
         aria-expanded={abierto}
         aria-controls={panelId}
         aria-label={abierto ? "Cerrar chat" : "Abrir chat con Cauralis"}
-        className="relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#22c3e6] to-[#3dd47a] text-[#04121a] shadow-[0_12px_32px_rgb(34_195_230/0.35)] transition-transform duration-200 hover:scale-105 active:scale-95"
+        className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[#25d366] text-white shadow-[0_12px_32px_rgb(37_211_102/0.35)] transition-transform duration-200 hover:scale-105 active:scale-95"
       >
-        {!yaAbierto && <span className="animate-llamar absolute inset-0 rounded-full bg-[#22c3e6]" aria-hidden="true" />}
-        <MessageCircle
+        {!yaAbierto && <span className="animate-llamar absolute inset-0 rounded-full bg-[#25d366]" aria-hidden="true" />}
+        <WhatsAppIcon
           size={24}
-          strokeWidth={2.2}
-          className={`absolute transition-all duration-300 ${abierto ? "rotate-90 scale-50 opacity-0" : "rotate-0 scale-100 opacity-100"}`}
+          className={`absolute text-white transition-all duration-300 ${abierto ? "rotate-90 scale-50 opacity-0" : "rotate-0 scale-100 opacity-100"}`}
         />
         <X
           size={24}
