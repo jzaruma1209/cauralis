@@ -3,7 +3,7 @@
 import { LazyMotion, MotionConfig, domAnimation, m } from "framer-motion";
 
 // Curva "expo out": arranca rápido y frena suave, como una revista que se acomoda.
-const EASE = [0.16, 1, 0.3, 1] as const;
+export const EASE = [0.16, 1, 0.3, 1] as const;
 
 /** Envuelve una zona animada. Carga solo lo necesario de Motion y respeta "reducir movimiento". */
 export function Coreografia({ children }: { children: React.ReactNode }) {

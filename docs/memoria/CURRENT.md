@@ -1,10 +1,10 @@
 # Estado actual
 
-_Última actualización: 2026-10-21 · por: Codex_
+_Última actualización: 2026-10-22 · por: Claude_
 
 ## Tarea activa
-- Ninguna. El icono oficial de WhatsApp en la burbuja flotante ya está publicado.
-- Rama: `main` · Estado Git: commits `d79ea60`, `52c0815` y `44e09c6` con push a `origin/main`.
+- Catálogo del Hero animado en bucle (cursor elige «Más vendidos», pulsa «Pedir por WhatsApp», llega el aviso de pedido). Hecho y verificado, **sin commit**: `components/animations/CatalogoAnimado.tsx` (nuevo), `components/sections/Hero.tsx` y `Entrada.tsx` (exporta `EASE`).
+- Rama: `main` · Estado Git: cambios sin commit. Lo anterior (icono de WhatsApp) ya está con push a `origin/main`.
 
 ## Avance comprobado
 - El resto de los iconos de WhatsApp se publicó en `8393aab` y está visible en `cauralis.com`.
@@ -15,7 +15,7 @@ _Última actualización: 2026-10-21 · por: Codex_
 ## Validación
 - `npm run lint`: 0 errores, 3 advertencias preexistentes en `DashboardClient.tsx`.
 - `npm run build`: correcto.
-- En producción, la burbuja contiene el SVG oficial con `viewBox="0 0 720 720"` y fondo verde.
+- Animación del catálogo probada en escritorio y móvil (375 px) en el navegador del preview; no probada con «reducir movimiento» activado.
 
 ## Bloqueos
 - Ninguno.
