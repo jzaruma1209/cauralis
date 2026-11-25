@@ -65,7 +65,10 @@ export default function Footer() {
 
         <div className="flex flex-wrap justify-between gap-4 pt-6 text-[13px] text-subtle">
           <p>© {year} Cauralis. Todos los derechos reservados.</p>
-          <Link href="/privacidad" className="transition-colors hover:text-foreground">Política de Privacidad</Link>
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
+            <Link href="/privacidad" className="transition-colors hover:text-foreground">Política de Privacidad</Link>
+            <Link href="/terminos" className="transition-colors hover:text-foreground">Términos del Servicio</Link>
+          </div>
           <p>Hecho en Ecuador</p>
         </div>
       </div>

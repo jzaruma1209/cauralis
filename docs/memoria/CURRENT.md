@@ -1,29 +1,31 @@
 # Estado actual
 
-_Última actualización: 2026-10-22 · por: Claude_
+_Última actualización: 2026-11-25 · por: Claude_
 
 ## Tarea activa
-- Ninguna. El catálogo animado del Hero está terminado y publicado.
-- Rama: `main` · Estado Git: memoria actualizada sin commit (`CURRENT.md`, `TAREAS.md`); el resto del trabajo ya tiene push a `origin/main`.
+- **T-08** (paso 5): la página `/terminos` ya está creada, enlazada en el pie y publicada con push a `origin/main`. Falta comprobar que carga en `cauralis.com` y que el usuario ponga la URL en «URL de Condiciones del servicio» en Meta.
+- Hechas: T-05 (URL de eliminación de datos), T-06 (requisitos en `docs/meta/requisitos-revision.md`) y T-07 (flujos de n8n revisados). Descartada: T-04 (verificar correo; no bloquea).
+- Plan completo: registro como proveedor de tecnología de WhatsApp, T-04 a T-14 en `TAREAS.md` (en orden, de lo más fácil a lo más complejo), T-15 bloqueada y la mejora M-01.
+- Modo de trabajo acordado: el agente orquesta y va paso a paso; el usuario avisa cuando termina cada paso, el agente lo comprueba con el MCP de Meta, lo marca hecho y da el siguiente.
+- Rama: `main` · Estado Git: página de términos y memoria con commit y push a `origin/main` (2026-11-25).
 
 ## Avance comprobado
-- Catálogo del Hero animado en bucle (el cursor elige «Más vendidos», pulsa «Pedir por WhatsApp» y llega el aviso de pedido): `a4bcb2a`, en `components/animations/CatalogoAnimado.tsx`.
-- Puntos flotantes e insignia «Cauralis 24/7» en el catálogo: `3f947a6`.
-- Animaciones al cargar, brillo en Landing pages (`Servicios.tsx`, `globals.css`) y menos espacio en el Hero: `f5f4747`.
-- Iconos de WhatsApp publicados y visibles en `cauralis.com` (`8393aab`, `d79ea60`, `52c0815`).
-- T-01 cerrada: todo lo que nombraba entró en `535b94d`.
+- MCP de Meta (`meta-social`) conectado y registrado en `CAPACIDADES.md` (2026-11-24).
+- Estado de la app de Meta `cauralis` según el MCP (2026-11-25): en modo en vivo; verificación del negocio aprobada; política de privacidad `https://www.cauralis.com/privacidad` válida; ícono y categoría Mensajería puestos; cumplimiento sin infracciones; uso de la API 0 % (0 llamadas en 30 días); sin versiones obsoletas (última: v27.0); revisión de la app nunca enviada.
+- Permisos de WhatsApp: acceso estándar sí, avanzado no. Llamada de prueba en 0 de 1 (`whatsapp_business_messaging` sin empezar, `whatsapp_business_management` con error).
+- Faltan: correo de contacto sin verificar; URLs de eliminación de datos y de términos apuntan a `facebook.com`; el sitio no tiene página de términos.
 
 ## Validación
-- `npm run lint`: 0 errores, 3 advertencias preexistentes en `DashboardClient.tsx` (última comprobación con `a4bcb2a`).
-- `npm run build`: correcto (misma comprobación).
-- Animación del catálogo probada en escritorio y móvil (375 px); no probada con «reducir movimiento» activado.
-- No consta en la memoria si se volvió a correr lint y build después de `3f947a6` y `f5f4747`.
+- `npm run lint` y `npm run build`: última comprobación con `a4bcb2a`; no constan después de `3f947a6` y `f5f4747`.
+- Catálogo animado sin probar con «reducir movimiento».
 
 ## Bloqueos
 - Ninguno.
 
 ## Próxima acción
-Confirmar las preferencias pendientes de T-02: zona horaria, registro de sesiones y modo Git.
+Comprobar `https://www.cauralis.com/terminos` en producción; después el usuario pone `https://www.cauralis.com/terminos` en Meta y el agente lo comprueba con `devtools_app` → `terms_of_service_url`.
 
 ## Contexto que no está en el código
-- Falta probar el catálogo animado con «reducir movimiento» activado.
+- Cauralis hace chatbots de WhatsApp y Messenger para otros negocios; por eso se busca ser proveedor de tecnología.
+- La app `cauralis` no registra llamadas: es probable que n8n use otra app u otro token (por comprobar en T-07).
+- T-02 (preferencias) sigue pendiente.
